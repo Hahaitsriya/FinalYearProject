@@ -9,22 +9,23 @@ def login(request):
 
 def signup(request):
     if request.method == 'POST':
-        username = request.POST.get('signup_username')
-        password = request.POST.get('signup_password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         contact=request.POST.get('contact')
         email=request.POST.get('email_Address')
         # status=request.POST.get('signup_status')
         print('sucessful')
         # print(status)
         print(username)
+        print(email)
         # if status=="users":
-        #     usermodel = User()
-        #     usermodel.Username = username
-        #     usermodel.User_email = email
-        #     usermodel.User_contact = contact
-        #     usermodel.User_password = password
+        usermodel = User()
+        usermodel.Username = username
+        usermodel.User_email = email
+        usermodel.User_contact = contact
+        usermodel.User_password = password
         #     usermodel.User_status = "users"
-        #     usermodel.save()
+        usermodel.save()
         #     print('sucessful')
         # elif status =="doctor":
         #     datamodel=Doctor()
