@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">  
+        <title> HealthPal Nepal- Home Page</title> 
+        <style>
+            .demo-wrap {
+                overflow: hidden;
+                position: relative;
+            }
+
+            .demo-bg {
+                opacity: 0.6;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: auto;
+            }
+
+            .demo-content {
+                .center {
+                    margin: auto;
+                    width: 50%;
+                    border: 3px solid green;
+                    padding: 10px;
+                }
+            }
+        </style>
+        <nav class="navbar navbar-expand-sm bg-light">
+            <div class="container-fluid">
+                {% load static %}
+              <a class="navbar-brand" href="{{ login }}">
+                <img src="app\logo.png"  style="width:60px;"> 
+              </a>
+              <div>
+               
+                <button type="submit" class="btn btn-primary"> LognIn</button>
+                <button type="button" class="btn btn-primary">SignUp</button>
+              </div>
+            </div>
+          </nav>
+          <!-- Blue background with white text -->
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ login }}">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Review</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Search a Doctor</a>
+            </li>
+            <li class="nav-item">
+            </li>         
+            <li class="nav-item">
+                <a class="nav-link" href="#">Join with Us</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    </head>
+    <body>
+        <div>
+            <div class="demo-wrap">
+                <img class="demo-bg" src="images\index-pc1.png" alt="">
+                <div class="demo-content">
+                  <h1>HealthPal Nepal</h1>
+                  <h2>Stay Home. Consult Suitable Doctors Online</h2>
+                </div>
+            </div>
+            <div>
+                <div class="carousel-item">
+                    <img src=" " alt="Los Angeles">
+                    <div class="carousel-caption">
+                      <h3>Los Angeles</h3>
+                      <p>We had such a great time in LA!</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src=" " alt="Los Angeles">
+                    <div class="carousel-caption">
+                      <h3>Los Angeles</h3>
+                      <p>We had such a great time in LA!</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src=" " alt="Los Angeles">
+                    <div class="carousel-caption">
+                      <h3>Los Angeles</h3>
+                      <p>We had such a great time in LA!</p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
+    </body>
+    <footer>
+
+    </footer>
+</html>
+{% block content %}
+{% endblock %}
