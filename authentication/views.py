@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from login.models import User,Doctor,Hospital
+from authentication.models import User,Doctor,Hospital
 from django.http import HttpResponse ,HttpRequest
 
 # Create your views here.
