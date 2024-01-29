@@ -14,25 +14,33 @@
           margin-right:80px;
         }
         /* Container holding the image and the text */
-        .container 
+        /* .container-fluid
         {
-          width: 100%;
+          position: relative;
           text-align: center;
           color: rgb(5, 5, 5);
-        }
+        } */
         /* Centered text */
-        .centered 
+        /* .centered 
         {
+          position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+        } */
+        .centered 
+        {
+          position: absolute;
+          top: 450px;
+          left: 100px;
+          color: rgb(5, 5, 5);
         }
       </style> 
       <nav class="navbar bg-light">
         <div class="container-fluid">
           <a class="navbar-brand">
           {% load static %}
-            <img src="media\logo.png" style="width: 170px; height: 70px;"> 
+            <img src="media\logo.png" style="width: 130px; height: 50px;"> 
           </a>
           <div>
             <a href="{% url 'login' %}" class="btn btn-primary" role="button">LogIn</a>
@@ -41,20 +49,20 @@
         </div>
       </nav>
        <!-- Blue background with white text -->
-      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
         <div class="container-fluid">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">About Us</h7></a>
+              <a href="#index_about_us" class="btn btn-primary" role="button"><h7 class="navtitle">About Us</h7></a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Review</h7></a>
+              <a href="#index_review" class="btn btn-primary" role="button"><h7 class="navtitle">Review</h7></a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+              <a href="#index_blog" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Search a Doctor</h7></a>
+              <a href="#index_search_doctor" class="btn btn-primary" role="button"><h7 class="navtitle">Search a Doctor</h7></a>
             </li>        
             <li class="nav-item">
               <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Join with Us</h7></a>
@@ -64,12 +72,112 @@
       </nav>   
     </head>
     <body>
-      <section class="about_us">
-        <div class="container">
+      <section id="index_about_us">
+        <div class=".container-fluid">
           <img src="media\indexpage1.jpg" alt="Snow" style="width:100%;">
-          <h1>HealthPal Nepal</h1>
-          <h3>befrvkssjnkjcdkasdnkadnakjsakxnajsckaa</h3>
+          <div class="centered">
+            <h1>HealthPal Nepal</h1>
+            <h3>Stay Home. Consult Suitable Doctors Online.</h3>
+          </div>
         </div>
+        <div class="navbar navbar-expand-sm bg-dark">
+          <div class="container-fluid">
+            <table class="navbar-nav">
+              <tr>
+                <li class="nav-item">
+                  <h4 style="color: aliceblue; padding-left: 25px; padding-right: 25px;"> Free Dental Checkup starts at moment. Know more about ongoing offers  >>></h4>
+                </li>
+                <li class="nav-item">
+                  <!-- this link needs to redirect to the dashboard. -->
+                  <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Know more</h7></a>
+                </li>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="index_review">
+        <!-- Carousel -->
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+          <!-- Indicators/dots -->
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+          </div>
+          <!-- The slideshow/carousel -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="media\hamshospital.jpg" alt="HamsHospital Profile" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+              <img src="media\manipalhospital.jpg" alt="ManipalHospital Profile" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+              <img src="media\medicarehospital.jpg" alt="medicareHospital Profile" class="d-block w-100">
+            </div>
+          </div>
+          <!-- Left and right controls/icons -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </section>
+      <section id="index_blog">
+        <div class="container-fluid">
+          <table>
+            <tr>
+              <div class="container mt-3">
+                <div class="card" style="width:400px">
+                  <img class="card-img-top" src="media\medicarehospital.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                  </div>
+                </div>
+                <div class="card" style="width:400px">
+                  <img class="card-img-top" src="media\medicarehospital.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                  </div>
+                </div>
+              </div>
+            </tr>
+          </table>
+          <div class="container mt-3">
+            <div class="card" style="width:600px">
+              <img class="card-img-top" src="media\medicarehospital.jpg" alt="Card image" style="width:100%">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary">See Profile</a>
+              </div>
+            </div>
+              <div class="container mt-3">
+                <div class="card" style="width:600px">
+                  <img class="card-img-top" src="media\medicarehospital.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                  </div>
+              </div>
+              <div class="container mt-3">
+                <div class="card" style="width:600px">
+                  <img class="card-img-top" src="media\medicarehospital.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                  </div>
+              </div>
+          </div>
       </section>
     </body>
     <footer>
