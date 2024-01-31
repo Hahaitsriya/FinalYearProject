@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>SignUp Page</title>
+    <style>
+      Body 
+      {  
+        font-family: Calibri, Helvetica, sans-serif; 
+        padding: 2px;  
+      }
+      table
+      {
+        align-content: left;
+      
+      }  
+      form 
+      {   
+        border: 3px solid #f1f1f1;   
+      }
+      .container 
+      {   
+        margin: 5px 5px;  
+        padding: 20px;   
+        /* background-color: lightblue; */
+        background-image: url("../static/signup.jpg"); 
+        background-size:cover;
+        background-blend-mode:color-dodge; 
+      } 
+      input[type=text], input[type=password], input[type=email]
+      {   
+        width: 30%;   
+        margin: 5px 5px;  
+        padding: 12px 20px;   
+        display: inline-block;   
+        border: 2px solid rgb(124, 146, 240);   
+        box-sizing: border-box;  
+      }    
+      
+    </style>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load static %}
+</head>
+<body>
+    <script> 
+      // Function to check Whether both passwords 
+      // is same or not. 
+      function checkPassword() 
+        { 
+          var password1=document.getElementById("password1").value; 
+          var password2 = document.getElementById("password2").value;
+          alert("dkwejdnejcnei");
+          // If password not entered 
+            if (password1 == '') 
+              alert ("Please enter Password"); 
+                    
+            // If confirm password not entered 
+            else if (password2 == '') 
+              alert ("Please enter confirm password"); 
+                    
+            // If Not same return False.     
+            else if (password1 != password2) 
+            { 
+              alert ("\nPassword did not match: Please try again...") 
+              return false; 
+            } 
+
+            // If same return True. 
+            else
+            { 
+              alert("Password Matched !!!") 
+              return true; 
+            } 
+          }
+    </script>
+    <div>
+        <center>
+          <div class="container">
+            <div class="d-flex justify-content-center">
+              <div class="p-2 bg border flex-fill"><a href="{% url 'login' %}">login</a></div>
+              <div class="p-2 bg-primary flex-fill">SignUp</div>
+            </div>
+            <br>
+            <br>
+            <h1>SignUp</h1>
+            <table>
+              <tr>
+              <form method="POST">
+                {% csrf_token %}
+                <label>Username : </label> 
+                <input type="text" id="username" name="username" required>
+                <label>Password : </label> 
+                <input type="password" id="password1" name="password" required>
+              </tr>
+              <br>  
+              <br>
+              <tr>
+                <label> Confirm Password : </label>
+                <input type="password" id="password2" name="confirm_password" required>
+                <label>Contact : </label>   
+                <input type="text" placeholder="Contact" name="contact" required>
+              </tr>
+              <br>
+                <br>
+                <tr>
+                <label>Email Address: </label>   
+                <input type="email" placeholder="email address" name="email_Address" required>
+                </tr>
+                <br>
+                <br>
+                <tr>
+                <label>Profile Picture:</label>
+                <input type="file" id="image_upload" name="image_upload" accept="image/*">
+              </tr>
+                <br>
+                <br>
+                <tr>
+                <div class="dropdown" id="status">
+                  <label>Status:</label>
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Status
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" name="user" value="user">User</a></li>
+                    <li><a class="dropdown-item" name="doctor" value="doctor">Doctor</a></li>
+                    <li><a class="dropdown-item" name="hospital" value="hospital">Hospital</a></li>
+                  </ul>
+                </div>
+                </tr>
+                </div>
+                <br>
+                <input type="submit" onclick="checkPassword()" value="Submit">
+              </form>
+            </table>
+          </div>
+      </center>
+      <p>bugibigu</p><a href="{% url 'login' %}">login</a>
+{% block content %}
+{% endblock %}
+</body>
+</html>
