@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+      {% load static %}
+      <meta name="viewport" content="width=device-width, initial-scale=1"> 
+      <title>Home Page</title>
+      <style>
+        .navtitle
+        {
+          margin-left:80px;
+          margin-right:80px;
+        }
+        .centered 
+        {
+          position: absolute;
+          top: 450px;
+          left: 100px;
+          color: rgb(5, 5, 5);
+        }
+      </style> 
+      <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">
+          {% load static %}
+            <img src="static\logo.png" style="width: 130px; height: 50px;"> 
+          </a>
+          <div>
+            <a href="{% url 'login' %}" class="btn btn-primary" role="button">LogIn</a>
+            <a href="{% url 'signup' %}" class="btn btn-primary" role="button">SignUp</a>
+          </div>
+        </div>
+      </nav>
+       <!-- Blue background with white text -->
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+        <div class="container-fluid">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="#index_about_us" class="btn btn-primary" role="button"><h7 class="navtitle">About Us</h7></a>
+            </li>
+            <li class="nav-item">
+              <a href="#index_review" class="btn btn-primary" role="button"><h7 class="navtitle">Review</h7></a>
+            </li>
+            <li class="nav-item">
+              <a href="#index_blog" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+            </li>
+            <li class="nav-item">
+              <a href="#index_search_doctor" class="btn btn-primary" role="button"><h7 class="navtitle">Search a Doctor</h7></a>
+            </li>        
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Join with Us</h7></a>
+            </li>
+          </ul>
+        </div>
+      </nav>   
+    </head>
+    <body>
+      <section id="index_about_us">
+        <div class=".container-fluid">
+          <img src="static\indexpage1.jpg" alt="Index-page background" style="width:100%;">
+          <div class="centered">
+            <h1>HealthPal Nepal</h1>
+            <h3>Stay Home. Consult Suitable Doctors Online.</h3>
+          </div>
+        </div>
+        <div class="navbar navbar-expand-sm bg-dark">
+          <div class="container-fluid">
+            <table class="navbar-nav">
+              <tr>
+                <li class="nav-item">
+                  <h4 style="color: aliceblue; padding-left: 25px; padding-right: 25px;"> Free Dental Checkup starts at moment. Know more about ongoing offers  >>></h4>
+                </li>
+                <li class="nav-item">
+                  <!-- this link needs to redirect to the dashboard. -->
+                  <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Know more</h7></a>
+                </li>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="index_review">
+        <!-- Carousel -->
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+          <!-- Indicators/dots -->
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+          </div>
+          <!-- The slideshow/carousel -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="static\hamshospital.jpg" alt="HamsHospital Profile" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+              <img src="static\manipalhospital.jpg" alt="ManipalHospital Profile" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+              <img src="static\medicarehospital.jpg" alt="medicareHospital Profile" class="d-block w-100">
+            </div>
+          </div>
+          <!-- Left and right controls/icons -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </section>
+      <section id="index_blog">
+        <div class="container-fluid">
+          <div class="container mt-3">
+            <div class="card" style="width:600px">
+              <img class="card-img-top" src="static\medicarehospital.jpg" alt="Card image" style="width:50%">
+              <div class="card-body">
+                  <h4 class="card-title">John Doe</h4>
+                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                  <a href="#" class="btn btn-primary">See Profile</a>
+              </div>
+            </div>
+            <div class="card" style="width:600px">
+              <img class="card-img-top" src="static\signup.jpg" alt="Card image" style="width:50%">
+              <div class="card-body">
+                  <h4 class="card-title">John Doe</h4>
+                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                  <a href="#" class="btn btn-primary">See Profile</a>
+              </div>
+            </div>
+        </div>
+      </section>
+    </body>
+    <footer>
+    </footer>
+</html>
