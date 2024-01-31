@@ -36,7 +36,22 @@
         border: 2px solid rgb(124, 146, 240);   
         box-sizing: border-box;  
       }    
-      
+
+      .button2
+      {
+        background-color: white; 
+        color: black; 
+        border: 2px solid #008CBA;
+        width: 90px;
+        height: 50px;
+        border-radius: 20px;
+      }
+
+      .button2:hover 
+      {
+        background-color: #008CBA;
+        color: white;
+      }
     </style>
     {% load bootstrap5 %}
     {% bootstrap_css %}
@@ -51,7 +66,6 @@
         { 
           var password1=document.getElementById("password1").value; 
           var password2 = document.getElementById("password2").value;
-          alert("dkwejdnejcnei");
           // If password not entered 
             if (password1 == '') 
               alert ("Please enter Password"); 
@@ -66,7 +80,6 @@
               alert ("\nPassword did not match: Please try again...") 
               return false; 
             } 
-
             // If same return True. 
             else
             { 
@@ -78,41 +91,45 @@
     <div>
         <center>
           <div class="container">
-            <div class="d-flex justify-content-center">
-              <div class="p-2 bg border flex-fill"><a href="{% url 'login' %}">login</a></div>
-              <div class="p-2 bg-primary flex-fill">SignUp</div>
-            </div>
-            <br>
+            <div class="d-flex justify-content-center" style="border: solid #000000; border-radius: 23px;">
+              <div class="p-2 bg border flex-fill" style=" text-align: center; color: #0c0000;">
+                <b>LogIn</b>
+              </div>
+              <div class="p-2 bg-primary flex-fill" style="border-radius: 23px; text-align: center; color: #FFFFFF;">
+                  <b>SignUp</b>
+              </div>
+          </div>
             <br>
             <h1>SignUp</h1>
+            <br>
             <table>
               <tr>
               <form method="POST">
                 {% csrf_token %}
                 <label>Username : </label> 
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" placeholder="John Doe" required>
                 <label>Password : </label> 
-                <input type="password" id="password1" name="password" required>
+                <input type="password" id="password1" name="password" placeholder="Abc12#@qwRFE" required>
               </tr>
               <br>  
               <br>
               <tr>
                 <label> Confirm Password : </label>
-                <input type="password" id="password2" name="confirm_password" required>
+                <input type="password" id="password2" name="confirm_password" placeholder="Abc12#@qwRFE" required>
                 <label>Contact : </label>   
-                <input type="text" placeholder="Contact" name="contact" required>
+                <input type="text" name="contact" placeholder="9769769508" required>
               </tr>
               <br>
                 <br>
                 <tr>
                 <label>Email Address: </label>   
-                <input type="email" placeholder="email address" name="email_Address" required>
+                <input type="email" name="email_Address" placeholder="john123@email.com" required>
                 </tr>
                 <br>
                 <br>
                 <tr>
                 <label>Profile Picture:</label>
-                <input type="file" id="image_upload" name="image_upload" accept="image/*">
+                <input type="file" id="image_upload" name="image_upload" accept="image/*" upload_to="media">
               </tr>
                 <br>
                 <br>
@@ -131,12 +148,18 @@
                 </tr>
                 </div>
                 <br>
-                <input type="submit" onclick="checkPassword()" value="Submit">
+                <p><input type="checkbox" required> 
+                  I agree to all terms and conditions. I hereby declare that I am above 18.
+                </p>
+                <input type="submit" onclick="checkPassword()" value="Signup" class="button2">
               </form>
             </table>
+            <br>
+            <p><b> Already have an account. </b>
+              <a href="{%url 'login'%}">  Login ?</a>
+            </p>
           </div>
       </center>
-      <p>bugibigu</p><a href="{% url 'login' %}">login</a>
 {% block content %}
 {% endblock %}
 </body>

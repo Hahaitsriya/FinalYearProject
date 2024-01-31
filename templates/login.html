@@ -8,66 +8,110 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">  
 <title> Login Page </title>  
 <style>   
-Body {  
-  font-family: Calibri, Helvetica, sans-serif;  
-  background-color: pink;  
-}  
-button {   
-       background-color: #4CAF50;   
-       width: 100%;  
-        color: orange;   
-        padding: 15px;   
-        margin: 10px 0px;   
-        border: none;   
-        cursor: pointer;   
-         }   
- form {   
-        border: 3px solid #f1f1f1;   
-    }   
- input[type=text], input[type=password] {   
-        width: 100%;   
-        margin: 8px 0;  
+    Body 
+    {  
+        font-family: Arial, Helvetica, sans-serif; 
+        padding: 5px;  
+    }
+    div.image:before 
+    {
+        content:url("../static/login.jpg");
+    }​
+ 
+    form 
+    {   
+        border: 3px;  
+        text-align: center; 
+    }
+    .container 
+    {   
+        /* margin: 5px 5px;   */
+        padding: 20px;    
+    } 
+    input[type=text], input[type=password], input[type=email]
+    {   
+        width: 50%;   
+        margin: 5px 5px;  
         padding: 12px 20px;   
         display: inline-block;   
-        border: 2px solid green;   
-        box-sizing: border-box;   
-    }  
- button:hover {   
-        opacity: 0.7;   
-    }   
-  .cancelbtn {   
-        width: auto;   
-        padding: 10px 18px;  
-        margin: 10px 5px;  
-    }   
-        
-     
- .container {   
-        padding: 25px;   
-        background-color: lightblue;  
-    }   
+        border: 2px solid rgb(124, 146, 240);   
+        box-sizing: border-box; 
+        border-radius: 20px; 
+    } 
+    .button2
+      {
+        background-color: white; 
+        color: black; 
+        border: 2px solid #008CBA;
+        border-radius: 20px;
+        width: 80px;
+        height: 50px;
+      }
+
+      .button2:hover 
+      {
+        background-color: #008CBA;
+        color: white;
+      }
 </style>   
 </head>    
-<body>    
-    <center> <h1> Student Login Form </h1> </center>   
-    <form>  
-        <div class="container">  
-            <div class="container">
-                <div class="d-flex justify-content-center">
-                  <div class="p-2 bg-primary flex-fill">LogIn</div>
-                  <div class="p-2 bg border flex-fill">SignUp</div>
-                </div> 
-            <label>Username : </label>   
-            <input type="text" placeholder="Enter Username" name="username" required>  
-            <label>Password : </label>   
-            <input type="password" placeholder="Enter Password" name="password" required>  
-            <button type="submit">Login</button>   
-            <input type="checkbox" checked="checked"> Remember me   
-            <button type="button" class="cancelbtn"> Cancel</button>   
-            Forgot <a href="#"> password? </a>   
-        </div>   
-    </form>  
-    <p>bugibigu</p><a href="{% url 'signup' %}">signup</a>   
+<body>     
+    <center>
+            <table colspan="2" class="container">
+                <tr>
+                    <td>
+                        <div class="image"></div>
+                    </td>
+                    <td style="background-color:rgb(231, 231, 216)" class="container-fluid">
+                        <center>
+                            <h2>Login Form </h2>
+                            <br>
+                            <h3>Create your account.</h3>
+                            <br>
+                        </center>
+                        <div class="d-flex justify-content-center" style="border: solid #0c0000; border-radius: 23px;">
+                            <div class="p-2 bg-primary flex-fill" style="border-radius: 23px; text-align: center; color: #FFFFFF;">
+                                <b>LogIn</b>
+                            </div>
+                            <div class="p-2 bg border flex-fill" style=" text-align: center; color: #0c0000;">
+                                <b>SignUp</b>
+                            </div>
+                        </div>
+                        <center>
+                            <form>
+                                <br>
+                                <br>
+                                <label>Username : </label>   
+                                <input type="text" placeholder="John Doe" name="username" required>  
+                                <br>
+                                <br>
+                                <label>Password : </label>   
+                                <input type="password" placeholder="Abc_2123#@Q" name="password" required>  
+                                <br>
+                                <br>
+                                <div class="dropdown" id="status">
+                                    <label>Status:</label>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                    Status
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" name="user" value="user">User</a></li>
+                                    <li><a class="dropdown-item" name="doctor" value="doctor">Doctor</a></li>
+                                    <li><a class="dropdown-item" name="hospital" value="hospital">Hospital</a></li>
+                                    </ul>
+                                </div>
+                                <br>  
+                                <button type="submit" class="button2">Login</button>   
+                                <br>
+                                <br>  
+                            </form>
+                            <p>Not a member ? <a href="{% url 'signup' %}"> SignUp Now.</a></p>
+                        </center>
+                    </td>
+                </tr>
+
+            </table>
+    </center> 
 </body> 
 {% block content %}
 {% endblock %}

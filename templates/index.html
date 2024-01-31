@@ -13,21 +13,6 @@
           margin-left:80px;
           margin-right:80px;
         }
-        /* Container holding the image and the text */
-        /* .container-fluid
-        {
-          position: relative;
-          text-align: center;
-          color: rgb(5, 5, 5);
-        } */
-        /* Centered text */
-        /* .centered 
-        {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        } */
         .centered 
         {
           position: absolute;
@@ -35,12 +20,16 @@
           left: 100px;
           color: rgb(5, 5, 5);
         }
+        .footertext
+        {
+          color: white;
+        }
       </style> 
       <nav class="navbar bg-light">
         <div class="container-fluid">
           <a class="navbar-brand">
           {% load static %}
-            <img src="media\logo.png" style="width: 130px; height: 50px;"> 
+            <img src="static\logo.png" style="width: 130px; height: 50px;"> 
           </a>
           <div>
             <a href="{% url 'login' %}" class="btn btn-primary" role="button">LogIn</a>
@@ -65,7 +54,7 @@
               <a href="#index_search_doctor" class="btn btn-primary" role="button"><h7 class="navtitle">Search a Doctor</h7></a>
             </li>        
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Join with Us</h7></a>
+              <a href="#Join_us" class="btn btn-primary" role="button"><h7 class="navtitle">Join with Us</h7></a>
             </li>
           </ul>
         </div>
@@ -74,7 +63,7 @@
     <body>
       <section id="index_about_us">
         <div class=".container-fluid">
-          <img src="media\indexpage1.jpg" alt="Snow" style="width:100%;">
+          <img src="static\indexpage1.jpg" alt="Snow" style="width:100%;">
           <div class="centered">
             <h1>HealthPal Nepal</h1>
             <h3>Stay Home. Consult Suitable Doctors Online.</h3>
@@ -108,13 +97,13 @@
           <!-- The slideshow/carousel -->
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="media\hamshospital.jpg" alt="HamsHospital Profile" class="d-block w-100">
+              <img src="static\hamshospital.jpg" alt="HamsHospital Profile" class="d-block w-100">
             </div>
             <div class="carousel-item">
-              <img src="media\manipalhospital.jpg" alt="ManipalHospital Profile" class="d-block w-100">
+              <img src="static\manipalhospital.jpg" alt="ManipalHospital Profile" class="d-block w-100">
             </div>
             <div class="carousel-item">
-              <img src="media\medicarehospital.jpg" alt="medicareHospital Profile" class="d-block w-100">
+              <img src="static\medicarehospital.jpg" alt="medicareHospital Profile" class="d-block w-100">
             </div>
           </div>
           <!-- Left and right controls/icons -->
@@ -127,27 +116,69 @@
         </div>
       </section>
       <section id="index_blog">
-        <div class="container-fluid">
-          <div class="container mt-3">
-            <div class="card" style="width:600px">
-              <img class="card-img-top" src="media\medicarehospital.jpg" alt="Card image" style="width:50%">
-              <div class="card-body">
+        <h1>Needs to route posts with the blod section. OK bye.</h1>
+        <img src="static\Khali.jpg">
+      </section>
+      <section id="index_search_doctor">
+        <table colspan="3">
+          <tr>
+            <td>
+              <div class="card" style="width:450px">
+                <img class="card-img-top" src="static\Khali.jpg" alt="Card image">
+                <div class="card-body">
                   <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                  <p class="card-text">Some example text.</p>
                   <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
               </div>
-            </div>
-            <div class="card" style="width:600px">
-              <img class="card-img-top" src="static\signup.jpg" alt="Card image" style="width:50%">
-              <div class="card-body">
+            </td>
+            <td>
+              <div class="card" style="width:450px">
+                <img class="card-img-top" src="static\Khali.jpg" alt="Card image">
+                <div class="card-body">
                   <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                  <p class="card-text">Some example text.</p>
                   <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
               </div>
-            </div>
-        </div>
+            </td>
+            <td>
+              <div class="card" style="width:450px">
+                <img class="card-img-top" src="static\Khali.jpg" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title">John Doe</h4>
+                  <p class="card-text">Some example text.</p>
+                  <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
       </section>
     </body>
     <footer>
+      <section id="Join_us">
+        <!-- Black background with white text -->
+        <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+          <table class="navbar-nav">
+            <tr>
+              <td class="nav-item">
+                <img src="static\logo.png" class="float-start" alt="logo" width="200px" height="100px" style="padding: 10px;">
+                <br>
+                <h3 class="footertext">HealthPal Nepal</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <li class="nav-item">
+                  <h4> Free Dental Checkup starts at moment. Know more about ongoing offers  >>></h4>
+                </li>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </section>
     </footer>
+    {% block content %}
+    {% endblock %}
 </html>
