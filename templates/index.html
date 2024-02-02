@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Loading bootstrap,css, html, javascript and static files for the website. -->
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
@@ -8,26 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title id="Home">Home Page</title>
     <style>
+      /* Adds margin to the nav items */
       .navtitle
       {
         margin-left:80px;
         margin-right:80px;
       }
-      .centered 
+      /* Define position of the text. */
+      .left 
       {
         position: absolute;
         top: 450px;
         left: 100px;
         color: rgb(5, 5, 5);
       }
-      .footertext
-      {
-        color: white;
-        padding: 5px;
-        margin-left: 5px;
-      }
     </style> 
+    <!-- Light background navigation bar with a static file image and two primary buttons. -->
     <nav class="navbar bg-light">
+      <!-- Container with 100% width  -->
       <div class="container-fluid">
         <a class="navbar-brand">
         {% load static %}
@@ -41,10 +40,13 @@
     </nav>
        <!-- Blue background with white text -->
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+      <!-- Nav bar with a fix sticky top -->
       <div class="container-fluid">
         <ul class="navbar-nav">
+          <!-- Nav bar with section link -->
           <li class="nav-item">
             <a href="#index_about_us" class="btn btn-primary" role="button"><h7 class="navtitle">About Us</h7></a>
+            <!-- Section link -->
           </li>
           <li class="nav-item">
             <a href="#index_review" class="btn btn-primary" role="button"><h7 class="navtitle">Review</h7></a>
@@ -59,18 +61,22 @@
             <a href="#Join_us" class="btn btn-primary" role="button"><h7 class="navtitle">Join with Us</h7></a>
           </li>
         </ul>
+        <!-- Section link -->
       </div>
     </nav>   
   </head>
   <body>
     <section id="index_about_us">
       <div class=".container-fluid">
+        <!-- Backgroung image -->
         <img src="static\indexpage1.jpg" alt="Index Page" style="width:100%;">
-        <div class="centered">
+        <div class="left">
+          <!-- Text alignment and index text -->
           <h1>HealthPal Nepal</h1>
           <h3>Stay Home. Consult Suitable Doctors Online.</h3>
         </div>
       </div>
+      <!-- Dark bar background with white text  -->
       <div class="navbar navbar-expand-sm bg-dark">
         <div class="container-fluid">
           <table class="navbar-nav">
@@ -79,7 +85,7 @@
                 <h4 style="color: aliceblue; padding-left: 25px; padding-right: 25px;"> Free Dental Checkup starts at moment. Know more about ongoing offers  >>></h4>
               </li>
               <li class="nav-item">
-                <!-- this link needs to redirect to the dashboard. -->
+                <!-- This link needs to redirect to the login. -->
                 <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Know more</h7></a>
               </li>
             </tr>
@@ -127,13 +133,17 @@
         <h1>Needs to route posts with the blod section. OK bye.</h1>
       </div>
     </section>
-    <section id="index_recommendations">
+    <section id="index_hospital">
+      <!-- Created a table to organize the hospital option showcase. -->
       <table colspan="3">
         <tr>
           <td>
+            <!-- Defined a card with the width  -->
             <div class="card" style="width:450px">
+              <!-- Added a static image file of hams hospital -->
               <img class="card-img-top" src="static\hamshospital.jpg" alt="HamsHospital card image">
               <div class="card-body">
+                <!-- create a card body with title and description. -->
                 <h4 class="card-title">Hams Hospital</h4>
                 <br>
                 <p class="card-text">Hospital for Advanced Medicine & Surgery (HAMS)is a multi-disciplinary tertiary care boutique hospital situated in Dhumbarahi, Kathmandu.
@@ -141,6 +151,7 @@
                   To provide high quality and affordable health care to the society.
                   To create an institution with safe and evidence based medicine.
                 </p>
+                <!-- To see profile there needs to login first. So, will be redirect into login section. -->
                 <a href="{% url 'login' %}" class="btn btn-primary">See Profile</a>
               </div>
             </div>
@@ -162,102 +173,110 @@
             <div class="card" style="width:450px">
               <img class="card-img-top" src="static\medicarehospital.jpg" alt="medicareHospital Card image">
               <br>
-                <div class="card-body">
-                  <h4 class="card-title">Medicare Hospital</h4>
-                  <br>
-                  <p class="card-text">Medicare National Hospital and Research Center is a hospital in Kathmandu, Bagmati Province.
-                    A group of medical practitioners from Nepal established Medicare Nepal (P) Ltd. in 1990 for operation of Medicare Nursing Home with 10 beds in Kathmandu valley.
-                  </p>
-                  <a href="{%url 'login'%}" class="btn btn-primary">See Profile</a>
-                  <br>
-                </div>
+              <div class="card-body">
+                <h4 class="card-title">Medicare Hospital</h4>
+                <br>
+                <p class="card-text">Medicare National Hospital and Research Center is a hospital in Kathmandu, Bagmati Province.
+                  A group of medical practitioners from Nepal established Medicare Nepal (P) Ltd. in 1990 for operation of Medicare Nursing Home with 10 beds in Kathmandu valley.
+                </p>
+                <a href="{%url 'login'%}" class="btn btn-primary">See Profile</a>
+                <br>
               </div>
-            </td>
-          </tr>
-        </table>
-      </section>
-    </body>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </body>
         <!-- Footer -->
-    <footer class="mt-5 p-4 bg-dark text-white text-center container-fluid" id="Join_us">
+  <footer class="mt-5 p-4 bg-dark text-white text-center container-fluid" id="Join_us">
       <!-- Section: Social media -->
-      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <!-- Left -->
-        <div class="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
-        </div>
-        <!-- Left -->
-        <!-- Right -->
-        <div>
-          <p><a href='# Home'>HealthPalNepal</a>
-          </p>
-        </div>
-        <!-- Right -->
-      </section>
-      <!-- Section: Social media -->
-      <!-- Section: Links  -->
-      <section>
-        <div class="container text-center text-md-start mt-5">
-          <!-- Grid row -->
-          <div class="row mt-3">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <!-- Content -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>HealthPal Nepal
-              </h6>
-              <img src="static\logo.png" alt="Logo footer" style="width: 200px; height: 80px;">
-              <br>
-              <br>
-              <p>
-                HealthPal Nepal is the web-platform for tension free suitable hospital recommendation
-                and appointment booking system. 
-              </p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                Partner Hospital
-              </h6>
-              <p>
-                Hams Hospital
-              </p>
-              <p>
-                Manipal Hospital
-              </p>
-              <p>
-                Medicare Hospital
-              </p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-              <p><i class="fas fa-home me-3"></i> Sanovaryang, Kathmandu, Nepal</p>
-              <p>
-                <i class="fas fa-envelope me-3"></i>
-                HealthPalNepal@gmail.com
-              </p>
-              <p><i class="fas fa-phone me-3"></i> +977 9769760803</p>
-              <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-        </div>
-      </section>
-      <!-- Section: Links  -->
-      <!-- Copyright -->
-      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        © 2024 Copyright: HealthPalNepal
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
       </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
-    {% block content %}
-    {% endblock %}
+      <!-- Left -->
+      <!-- Right -->
+      <div>
+        <p>
+          <a href='# Home'>HealthPalNepal</a>
+        </p>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+    <!-- Section: Links  -->
+    <section>
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>HealthPal Nepal
+            </h6>
+            <img src="static\logo.png" alt="Logo footer" style="width: 200px; height: 80px;">
+            <br>
+            <br>
+            <p>
+              HealthPal Nepal is the web-platform for tension free suitable hospital recommendation
+              and appointment booking system. 
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Partner Hospital
+            </h6>
+            <p>
+              Hams Hospital
+            </p>
+            <p>
+              Manipal Hospital
+            </p>
+            <p>
+              Medicare Hospital
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p>
+              <i class="fas fa-home me-3">
+                </i> 
+                Sanovaryang, Kathmandu, Nepal
+            </p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              HealthPalNepal@gmail.com
+            </p>
+            <p>
+              <i class="fas fa-phone me-3"></i>
+               +977 9769760803
+            </p>
+            <p>
+              <i class="fas fa-print me-3"></i>
+               + 01 234 567 89
+            </p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2024 Copyright: HealthPalNepal
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+  {% block content %}
+  {% endblock %}
 </html>

@@ -1,33 +1,38 @@
-<!DOCTYPE html>   
+<!DOCTYPE html> 
+<!-- Loading bootstrap,css, html, javascript and static files for the website. --> 
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %} 
 <html>   
-<head>  
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    {% load static %}
-<meta name="viewport" content="width=device-width, initial-scale=1">  
-<title> Login Page </title>  
-<style>   
+<head>
+    <!-- Meta tag is used to define metadata about a web page and viewport meta tag is commonly used to control the layout. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <title> Login Page </title>  
+    <style>
+    /* Adding font to the body    */
     Body 
     {  
         font-family: Arial, Helvetica, sans-serif; 
         padding: 5px;  
     }
+    /* Adding image as a background. */
     div.image:before 
     {
         content:url("../static/login.jpg");
-    }​
- 
-    form 
+    }
+    /* Adding border and text alignment to the form. */
+   form 
     {   
         border: 3px;  
         text-align: center; 
     }
+
     .container 
     {   
-        /* margin: 5px 5px;   */
         padding: 20px;    
     } 
+
     input[type=text], input[type=password], input[type=email]
     {   
         width: 50%;   
@@ -37,82 +42,84 @@
         border: 2px solid rgb(124, 146, 240);   
         box-sizing: border-box; 
         border-radius: 20px; 
-    } 
+    }
+
     .button2
-      {
+    {
         background-color: white; 
         color: black; 
         border: 2px solid #008CBA;
         border-radius: 20px;
         width: 80px;
         height: 50px;
-      }
+    }
 
-      .button2:hover 
-      {
+    .button2:hover 
+    {
         background-color: #008CBA;
         color: white;
-      }
+    }
 </style>   
 </head>    
-<body>     
+<body>  
+    <!-- Bring context to the center    -->
     <center>
-            <table colspan="2" class="container">
-                <tr>
-                    <td>
-                        <div class="image"></div>
-                    </td>
-                    <td style="background-color:rgb(231, 231, 216)" class="container-fluid">
-                        <center>
-                            <h2>Login Form </h2>
-                            <br>
-                            <h3>Create your account.</h3>
-                            <br>
-                        </center>
-                        <div class="d-flex justify-content-center" style="border: solid #0c0000; border-radius: 23px;">
-                            <div class="p-2 bg-primary flex-fill" style="border-radius: 23px; text-align: center; color: #FFFFFF;">
-                                <b>LogIn</b>
-                            </div>
-                            <div class="p-2 bg border flex-fill" style=" text-align: center; color: #0c0000;">
-                                <b>SignUp</b>
-                            </div>
+        <!-- Table with two column and defining the container. -->
+        <table colspan="2" class="container">
+            <!-- Table row -->
+            <tr>
+                <!-- Table data -->
+                <td>
+                    <!-- One column image display. -->
+                    <div class="image"></div>
+                </td>
+                <!-- Table data-2 -->
+                <td style="background-color:rgb(231, 231, 216)" class="container-fluid">
+                    <center>
+                        <!-- Center 
+                        Headings -->
+                        <h2>Login Form </h2>
+                        <br>
+                        <h3>Create your account.</h3>
+                        <br>
+                    </center>
+                    <div class="d-flex justify-content-center" style="border: solid #0c0000; border-radius: 23px;">
+                        <div class="p-2 bg-primary flex-fill" style="border-radius: 23px; text-align: center; color: #FFFFFF;">
+                            <b>LogIn</b>
                         </div>
-                        <center>
-                            <form>
-                                <br>
-                                <br>
-                                <label>Username : </label>   
-                                <input type="text" placeholder="John Doe" name="username" required>  
-                                <br>
-                                <br>
-                                <label>Password : </label>   
-                                <input type="password" placeholder="Abc_2123#@Q" name="password" required>  
-                                <br>
-                                <br>
-                                <div class="dropdown" id="status">
-                                    <label>Status:</label>
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                                    Status
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" name="user" value="user">User</a></li>
-                                    <li><a class="dropdown-item" name="doctor" value="doctor">Doctor</a></li>
-                                    <li><a class="dropdown-item" name="hospital" value="hospital">Hospital</a></li>
-                                    </ul>
-                                </div>
-                                <br>  
-                                <button type="submit" class="button2">Login</button>   
-                                <br>
-                                <br>  
-                            </form>
-                            <p>Not a member ? <a href="{% url 'signup' %}"> SignUp Now.</a></p>
-                        </center>
-                    </td>
-                </tr>
-
-            </table>
+                        <div class="p-2 bg border flex-fill" style=" text-align: center; color: #0c0000;">
+                            <b>SignUp</b>
+                        </div>
+                    </div>
+                    <!-- Form -->
+                    <form>
+                        <br>
+                        <br>
+                        <label>Username : </label>   
+                        <input type="text" placeholder="John Doe" name="username" required>  
+                        <br>
+                        <br>
+                        <label>Password : </label>   
+                        <input type="password" placeholder="Abc_2123#@Q" name="password" required>  
+                        <br>
+                        <br>
+                        <br>  
+                        <button type="submit" class="button2">Login</button>   
+                        <br>
+                        <br>  
+                    </form>
+                    <!-- Form -->
+                    <!-- If do not have account redirect to the signup page. -->
+                    <p> Not a member ? 
+                        <a href="{% url 'signup' %}"> SignUp Now.</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <!-- Table  -->
     </center> 
-</body> 
+</body>
+<!-- body  -->
+</html> 
 {% block content %}
 {% endblock %}
-</html> 
