@@ -120,36 +120,32 @@
                 <input type="text" name="contact" placeholder="9769769508" required>
               </tr>
               <br>
-                <br>
-                <tr>
+              <br>
+              <tr>
                 <label>Email Address: </label>   
                 <input type="email" name="email_Address" placeholder="john123@email.com" required>
-                </tr>
-                <br>
-                <br>
-                <tr>
-                <label>Profile Picture:</label>
-                <input type="file" id="image_upload" name="image_upload" accept="image/*" upload_to="media">
+                <label>Home Address: </label>   
+                <input type="text" name="home_Address" placeholder="Kathmandu" required>
               </tr>
-                <br>
-                <br>
-                <tr>
-                <div class="dropdown" id="status">
-                  <label>Status:</label>
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                    Status
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" name="user" value="user">User</a></li>
-                    <li><a class="dropdown-item" name="doctor" value="doctor">Doctor</a></li>
-                    <li><a class="dropdown-item" name="hospital" value="hospital">Hospital</a></li>
-                  </ul>
-                </div>
+              <br>
+              <br>
+              <tr>
+                <label>Profile Picture:</label>
+                <input type="file" name="image_upload" accept="image/*" upload_to="media">
+              </tr>
+              <br>
+              <br>
+              <tr>
+                <select name="status" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" role="button">
+                  <option value="user" class="dropdown-item">user</option>
+                  <option value="doctor" class="dropdown-item">doctor</option>
+                  <option value="hospital" class="dropdown-item">hospital</option>
+                </select>
                 </tr>
                 </div>
                 <br>
                 <p><input type="checkbox" required> 
-                  I agree to all terms and conditions. I hereby declare that I am above 18.
+                  I agree to all terms and conditions. I hereby declare that I am above 18 and will be responsible for the action I did.
                 </p>
                 <input type="submit" onclick="checkPassword()" value="Signup" class="button2">
               </form>
