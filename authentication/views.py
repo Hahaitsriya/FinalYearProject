@@ -4,6 +4,27 @@ from django.http import HttpResponse ,HttpRequest
 
 # Create your views here.
 def login(request):
+    error = ""
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Authenticate the user
+        Username = userProfile.objects.values('username')
+        Password = userProfile.objects.values('user_password')
+
+        user_name = [user['username'] for user in Username]
+        user_password = [p['user_password'] for p in Password]
+
+        for u_name, u_password in zip(user_name, user_password):
+            if (username == u_name):
+                if(password == u_password):  
+                    return render(request,'index.html')
+                else:
+                    print("wrong info") 
+                    error = "Password does not matched!!"
+                    return render(request,'login.html',{'error':error})       
+                    
     return render(request,'login.html')
 
 def home(request):
