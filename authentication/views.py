@@ -3,34 +3,33 @@ from authentication.models import userProfile
 from django.http import HttpResponse ,HttpRequest
 
 # Create your views here.
+#For users to login.
 def login(request):
     error = ""
+    #Fetch the data from login form into the variable using post method.
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         # Authenticate the user
-        Username = userProfile.objects.values('username')
-        Password = userProfile.objects.values('user_password')
-
-        user_name = [user['username'] for user in Username]
-        user_password = [p['user_password'] for p in Password]
-
-        for u_name, u_password in zip(user_name, user_password):
-            if (username == u_name):
-                if(password == u_password):  
-                    return render(request,'index.html')
-                else:
-                    print("wrong info") 
-                    error = "Password does not matched!!"
-                    return render(request,'login.html',{'error':error})       
+        user = userProfile.objects.filter(username=username, user_password=password).exists() 
+        #To check if a user with the given username and password exists.
+        #There is use of filter and exists methods.
+        if user:
+            #if user exists redirect to index html.
+            return render(request,'index.html')
+        else:
+            #else show an error.
+            error = "Username or password is incorrect."
+    return render(request, 'login.html', {'error': error})
+     
                     
-    return render(request,'login.html')
-
+#For displaying inital page for the viewers.
 def home(request):
+    #redirect to the index page.
     return render(request,'index.html')
 
 def signup(request):
+    #Fetch data from html and css form. 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -40,30 +39,20 @@ def signup(request):
         image=request.POST.get('image_upload')
         status=request.POST.get('status')
 
+        # Loading the feilds from authentication.models(userProfile) into the variable user. 
         user=userProfile()
 
+        #Loading the data from into the database.
         user.username = username
         user.user_password = password
         user.user_contact=contact
         user.user_email=email
         user.user_address=address
         user.user_profile=image
-        user.user_status =  status
-
+        user.user_status =status
+        print(status)
+        #Saves the data.
         user.save()
-        # process your data
-        print("Your form data...")
-        print(username)
-        print(password)
-        print(status)
-        print(username)
-        print(password)
-        print(email)
-        print(email)
-        print(contact)
-        print(status)
-        return render(request,'login.html')
-
     return render(request,'signup.html')
 
 # send email with verification link

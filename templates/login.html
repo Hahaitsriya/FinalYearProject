@@ -92,7 +92,8 @@
                         </div>
                     </div>
                     <!-- Form -->
-                    <form>
+                    <form method="POST">
+                    {% csrf_token %}
                         <br>
                         <br>
                         <label>Username : </label>   
@@ -103,16 +104,19 @@
                         <input type="password" placeholder="Abc_2123#@Q" name="password" required>  
                         <br>
                         <br>
-                        <br>  
+                        <br>
+                        {% if error %}
+                        <p>{{ error }}</p>
+                        {% endif %}  
                         <button type="submit" class="button2">Login</button>   
                         <br>
                         <br>  
+                        <!-- Form -->
+                        <!-- If do not have account redirect to the signup page. -->
+                        <p> Not a member ? 
+                            <a href="{% url 'signup' %}"> SignUp Now.</a>
+                        </p>
                     </form>
-                    <!-- Form -->
-                    <!-- If do not have account redirect to the signup page. -->
-                    <p> Not a member ? 
-                        <a href="{% url 'signup' %}"> SignUp Now.</a>
-                    </p>
                 </td>
             </tr>
         </table>
