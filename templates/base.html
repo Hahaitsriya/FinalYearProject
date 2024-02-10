@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .navtitle
+        {
+            margin-left:60px;
+            margin-right:70px;
+        }
+    </style>
+</head> 
+<body>
+    <header>
+        <!-- Light background navigation bar with a static file image and two primary buttons. -->
+        <nav class="navbar bg-light">
+            <!-- Container with 100% width  -->
+            <div class="container-fluid">
+            <a class="navbar-brand">
+            {% load static %}
+                <img src="static\logo.png" style="width: 130px; height: 50px;"> 
+            </a>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16" role="button">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                </svg>
+                
+            </div>
+            </div>
+        </nav>
+         <!-- Blue background with white text -->
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+            <!-- Nav bar with a fix sticky top -->
+            <div class="container-fluid">
+            <ul class="navbar-nav">
+                <!-- Nav bar with section link -->
+                <li class="nav-item">
+                <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Dashboard</h7></a>
+                </li>
+                <li class="nav-item">
+                <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Chatbox</h7></a>
+                </li>
+                <li class="nav-item">
+                <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
+                </li>
+                <li class="nav-item">
+                <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Settings</h7></a>
+                </li>        
+                <li class="nav-item">
+                <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">About us</h7></a>
+                </li>
+            </ul>
+            </div>
+        </nav> 
+    </header>
+</body>
+{% block content %}
+{% endblock %}   
+</html>

@@ -1,5 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class user(models.Model):
-    user_id=models.AutoField(primary_key=True)
+class dashboard(models.Model):
+    title=models.CharField(max_length=50,verbose_name="title",null=False,blank=True)
+    body=models.TextField(max_length=2500,verbose_name="Body",blank=True,null=False)
+    

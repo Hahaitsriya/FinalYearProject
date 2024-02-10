@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
 <html>
     <head>
         <!-- Loading bootstrap,css, html, javascript and static files for the website. -->
@@ -8,6 +9,10 @@
         {% load static %}
     </head>
     <body>
+        <div class="container-fluid">
 
+        </div>
     </body>
+{% block content %}
+{% endblock %}
 </html>
