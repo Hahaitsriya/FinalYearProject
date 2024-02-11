@@ -26,5 +26,6 @@ urlpatterns = [
     path('login/',authentication.views.login,name="login"),
     path('signup/',authentication.views.signup,name="signup"),
     path('dashboard/',blog.views.wei,name="dashboard"),
+    path('about/',blog.views.hii, name='about'),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

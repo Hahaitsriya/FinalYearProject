@@ -7,3 +7,6 @@ from django.shortcuts import render
 def wei(request):
     #redirect to the index page.
     return render(request,'dashboard.html')
+
+def hii(request):
+    return render(request,'about.html')
