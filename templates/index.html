@@ -28,10 +28,11 @@
     <nav class="navbar bg-light">
       <!-- Container with 100% width  -->
       <div class="container-fluid">
+
         <a class="navbar-brand">
-        {% load static %}
-           <img src="static\logo.png" style="width: 130px; height: 50px;"> 
-        </a>
+          {% load static %}
+              <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+          </a>
         <div>
           <a href="{% url 'login' %}" class="btn btn-primary" role="button">LogIn</a>
           <a href="{% url 'signup' %}" class="btn btn-primary" role="button">SignUp</a>

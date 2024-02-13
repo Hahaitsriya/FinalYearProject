@@ -9,6 +9,10 @@
 <head>
     <title>About Us</title>
 </head>
+<a class="navbar-brand">
+    {% load static %}
+        <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+    </a>
 {% endblock %}
 {% block content %}
 <body style="background-color:beige">
@@ -22,10 +26,11 @@
             <br>
             <tr>
                 <td width="40%">
-                    <a class="navbar-brand">
+                    
+                   
                         {% load static %}
-                        <img src="static\logo.png" style="width: 580px; height: 150px;"> 
-                    </a>
+                        <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+                      
                 </td>
                 <br>
                 <td width="60%">
