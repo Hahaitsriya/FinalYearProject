@@ -139,7 +139,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Set session engine to use JSON file-based storage
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.file'
-
+# Set directory to store session files.
 SESSION_FILE_PATH = 'session'
