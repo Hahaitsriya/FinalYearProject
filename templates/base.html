@@ -15,6 +15,9 @@
             margin-right:70px;
         }
     </style>
+    <script>
+        if {{request.session.status=='user'}}:
+    </script>
     <header>
         <!-- Light background navigation bar with a static file image and two primary buttons. -->
         <nav class="navbar bg-light">
@@ -40,7 +43,7 @@
                 <li class="nav-item">
                     <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Dashboard</h7></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="forusers">
                     <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Chatbox</h7></a>
                 </li>
                 <li class="nav-item">

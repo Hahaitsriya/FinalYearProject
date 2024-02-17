@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from authentication.models import userProfile
 from django.http import HttpResponse ,HttpRequest
+import json
 
 # Create your views here.
 #For users to login.
@@ -15,13 +16,23 @@ def login(request):
         #To check if a user with the given username and password exists.
         #There is use of filter and exists methods.
         if user:
-            #if user exists redirect to index html.
-            return render(request,'index.html')
+            user_Profile = userProfile.objects.get(username=username, user_password=password)
+            # Fetching all the data into the sessions.
+            request.session['user_id'] = user_Profile.user_id
+            request.session['username']=user_Profile.username
+            request.session['email']=user_Profile.user_email
+            request.session['image']=user_Profile.user_profile
+            request.session['contact']=user_Profile.user_contact
+            request.session['address']=user_Profile.user_address
+            request.session['status']=user_Profile.user_status
+            #Saving into the session.
+            request.session.save()
+            #if user exists redirect to dashboard html.
+            return render(request,'dashboard.html')
         else:
             #else show an error.
             error = "Username or password is incorrect."
-    return render(request, 'login.html', {'error': error})
-     
+    return render(request, 'login.html', {'error': error})  
                     
 #For displaying inital page for the viewers.
 def home(request):
