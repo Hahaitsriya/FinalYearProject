@@ -19,20 +19,27 @@ def login(request):
             user_Profile = userProfile.objects.get(username=username, user_password=password)
             # Fetching all the data into the sessions.
             request.session['user_id'] = user_Profile.user_id
-            request.session['username']=user_Profile.username
-            request.session['email']=user_Profile.user_email
-            request.session['image']=user_Profile.user_profile
-            request.session['contact']=user_Profile.user_contact
-            request.session['address']=user_Profile.user_address
-            request.session['status']=user_Profile.user_status
-            #Saving into the session.
+            # request.session['username']=user_Profile.username
+            # request.session['email']=user_Profile.user_email
+            # request.session['image']=user_Profile.user_profile
+            # request.session['contact']=user_Profile.user_contact
+            # request.session['address']=user_Profile.user_address
+            # request.session['status']=user_Profile.user_status
+            #Saving into the session.7yyy
             request.session.save()
             #if user exists redirect to dashboard html.
             return render(request,'dashboard.html')
         else:
             #else show an error.
             error = "Username or password is incorrect."
-    return render(request, 'login.html', {'error': error})  
+    return render(request, 'login.html', {'error': error}) 
+
+def base_home(request):
+    user_id=request.session.get['user_id']
+    user_Profile=userProfile.objects.get(user_id='user_id')
+    status=user_Profile.user_status
+    return render(request,'base.html')
+
                     
 #For displaying inital page for the viewers.
 def home(request):
