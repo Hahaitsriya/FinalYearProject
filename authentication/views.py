@@ -11,6 +11,7 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         # Authenticate the user
         user = userProfile.objects.filter(username=username, user_password=password).exists() 
         #To check if a user with the given username and password exists.
@@ -27,6 +28,7 @@ def login(request):
             # request.session['status']=user_Profile.user_status
             #Saving into the session.7yyy
             request.session.save()
+            print( request.session['user_id'])
             #if user exists redirect to dashboard html.
             return render(request,'dashboard.html')
         else:
@@ -35,10 +37,12 @@ def login(request):
     return render(request, 'login.html', {'error': error}) 
 
 def base_home(request):
-    user_id=request.session.get['user_id']
+    user_id=request.session.get('user_id')
     user_Profile=userProfile.objects.get(user_id='user_id')
+    print(user_id)
     status=user_Profile.user_status
-    return render(request,'base.html')
+    print(status)
+    return render(request,'base.html',{'status':status})
 
                     
 #For displaying inital page for the viewers.
