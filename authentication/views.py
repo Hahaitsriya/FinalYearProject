@@ -2,6 +2,15 @@ from django.shortcuts import render
 from authentication.models import userProfile
 from django.http import HttpResponse ,HttpRequest
 import json
+# Add below existing imports
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from .token import account_activation_token
+from django.core.mail import EmailMessage
+from django.contrib import messages
+
 
 # Create your views here.
 #For users to login.
@@ -16,39 +25,58 @@ def login(request):
         user = userProfile.objects.filter(username=username, user_password=password).exists() 
         #To check if a user with the given username and password exists.
         #There is use of filter and exists methods.
+
         if user:
             user_Profile = userProfile.objects.get(username=username, user_password=password)
             # Fetching all the data into the sessions.
             request.session['user_id'] = user_Profile.user_id
-            # request.session['username']=user_Profile.username
-            # request.session['email']=user_Profile.user_email
-            # request.session['image']=user_Profile.user_profile
-            # request.session['contact']=user_Profile.user_contact
-            # request.session['address']=user_Profile.user_address
-            # request.session['status']=user_Profile.user_status
+            request.session['status'] = user_Profile.user_status
+            user_status = user_Profile.user_status
+            print(user_status)
             #Saving into the session.7yyy
             request.session.save()
-            print( request.session['user_id'])
             #if user exists redirect to dashboard html.
-            return render(request,'dashboard.html')
+
+            return render(request,'base.html',{'user_status':user_status})
         else:
             #else show an error.
             error = "Username or password is incorrect."
+
     return render(request, 'login.html', {'error': error}) 
 
+
 def base_home(request):
-    user_id=request.session.get('user_id')
-    user_Profile=userProfile.objects.get(user_id='user_id')
-    print(user_id)
-    status=user_Profile.user_status
+    userid = request.session.get('user_id')
+    user_Profile = userProfile.objects.get(user_id=userid)
+    print(userid)
+    status = user_Profile.user_status
     print(status)
     return render(request,'base.html',{'status':status})
 
-                    
+
 #For displaying inital page for the viewers.
 def home(request):
+    userid = request.session.get('user_id')
+    user_Profile = userProfile.objects.get(user_id=userid)
+    print(userid)
+    status = user_Profile.user_status
+    print(status)
     #redirect to the index page.
-    return render(request,'index.html')
+    return render(request,'index.html', {'status':status})
+
+def dashboard(request):
+     # Call the base_home view to get the base functionality
+    base_context = base_home(request)
+     # Merge the base context with the dashboard.
+    # context = {**base_context, **dashboard}
+    userid = request.session.get['user_id']
+    user_Profile = userProfile.objects.get(user_id=userid)
+    print(userid)
+    status = user_Profile.user_status
+    print(status)
+    # Render the dashboard template with the merged context
+    return render(request, 'dashboard.html', {'status':status})
+
 
 def signup(request):
     #Fetch data from html and css form. 
@@ -103,14 +131,7 @@ def verify_email(request):
         else:
             return render('signup')
     return render(request, 'user/verify_email.html')
-# Add below existing imports
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.template.loader import render_to_string
-from .token import account_activation_token
-from django.core.mail import EmailMessage
-from django.contrib import messages
+
 
 # so we can reference the user model as User instead of CustomUser
 # user = userProfile()
