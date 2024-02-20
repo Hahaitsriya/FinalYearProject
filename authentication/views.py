@@ -36,14 +36,12 @@ def login(request):
             #Saving into the session.7yyy
             request.session.save()
             #if user exists redirect to dashboard html.
-
-            return render(request,'base.html',{'user_status':user_status})
+            return render(request,'dashboard.html',{'user_status':user_status})
         else:
             #else show an error.
             error = "Username or password is incorrect."
 
     return render(request, 'login.html', {'error': error}) 
-
 
 def base_home(request):
     userid = request.session.get('user_id')
@@ -52,7 +50,6 @@ def base_home(request):
     status = user_Profile.user_status
     print(status)
     return render(request,'base.html',{'status':status})
-
 
 #For displaying inital page for the viewers.
 def home(request):
