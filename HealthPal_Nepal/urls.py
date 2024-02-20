@@ -27,7 +27,7 @@ urlpatterns = [
     path('signup/',views.signup,name="signup"),
     path('dashboard/', views.dashboard,name="dashboard"),
     path('about/',blog.views.hii, name='about'),
-    path('base_home',views.base_home,name='base_home'),
+    # path('base_home',views.base_home,name='base_home'),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
