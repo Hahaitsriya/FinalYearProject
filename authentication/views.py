@@ -41,6 +41,7 @@ def login(request):
             # print(user_status)
             #Saving into the session.
             request.session.save()
+            print(user_status)
             #if user exists redirect to dashboard html.
             return render(request,'dashboard.html')
             # ,{'user_status':user_status}
