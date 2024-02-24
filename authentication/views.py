@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from authentication.models import userProfile
 from django.http import HttpResponse ,HttpRequest
 import json
@@ -38,13 +38,12 @@ def login(request):
             request.session['user_id'] = user_Profile.user_id
             request.session['status'] = user_Profile.user_status
             user_status = user_Profile.user_status
-            # print(user_status)
+
             #Saving into the session.
             request.session.save()
-            print(user_status)
-            #if user exists redirect to dashboard html.
-            return render(request,'dashboard.html')
-            # ,{'user_status':user_status}
+
+            #if user exists redirect to dashboard url.
+            return redirect('dashboard')
         else:
             #else show an error.
             error = "Username or password is incorrect."
@@ -53,53 +52,19 @@ def login(request):
 def base_home(request):
     # Retrieve user status from session
     user_status = request.session.get('user_status')
-    print(user_status)
     context = {
         'user_status': user_status,
-        # Other context variables
     }
     return render(request, 'base.html', context)
 
-# def base_home(request):
-#     user_id=userProfile.user_id
-#     if user_id in request.session:
-#         userid=request.session['user_id']
-#         print(userid)
-#         status = userProfile.user_status
-#     else:
-#         print("qwertyuikl")
-#         # user_id = request.session.get('user_id')
-#     # user_Profile = userProfile.objects.get(user_id=userid)
-#     # print(userid)
-#     # user_id=userProfile.user_id
-#     # print(user_id)
-#     # status = user_Profile.user_status
-#     # print(status)
-#     user_profile = userProfile.objects.get(user_id=user_id)
-#     return render(request,'base.html',{'status':status})
-
-#For displaying inital page for the viewers.
-# def home(request):
-    # userid = request.session.get('user_id')
-    # user_Profile = userProfile.objects.get(user_id=userid)
-    # print(userid)
-    # status = user_Profile.user_status
-    # print(status)
-    #redirect to the index page.
-    # return render(request,'index.html')
-
 def dashboard(request):
-     # Call the base_home view to get the base functionality
-    base_context = base_home()
-     # Merge the base context with the dashboard.
-    context = {**base_context}
-    userid = request.session.get['user_id']
-    user_Profile = userProfile.objects.get(user_id=userid)
-    print(userid)
-    status = user_Profile.user_status
-    print(status)
-    # Render the dashboard template with the merged context
-    return render(request, 'dashboard.html', {'status':status}, context)
+    user_id = request.session.get('user_id')
+    if user_id is None:
+        return render(request,'login.html')
+    else:
+        user_profile = userProfile.objects.get(user_id=user_id)
+        # printing the user status
+    return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})
 
 
 def signup(request):
