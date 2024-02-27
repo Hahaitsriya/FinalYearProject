@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from authentication import views
+import dashboard.views
 import blog.views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,9 +26,9 @@ urlpatterns = [
     path('',views.home,name="index"),
     path('login/',views.login,name="login"),
     path('signup/',views.signup,name="signup"),
-    path('dashboard/', views.dashboard,name="dashboard"),
+    path('dashboard/',dashboard.views.dashboard,name="dashboard"),
     path('about/',blog.views.hii, name='about'),
-    # path('base_home',views.base_home,name='base_home'),
+    path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
