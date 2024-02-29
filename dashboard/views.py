@@ -2,6 +2,7 @@ from django.shortcuts import render
 from dashboard.models import offerPost
 from authentication.models import userProfile
 from authentication.views import *
+from datetime import date
 
 def base_home(request):
     # Retrieve user status from session
@@ -19,33 +20,12 @@ def dashboard(request):
         user_profile = userProfile.objects.get(user_id=user_id)
     
         if request.method == 'POST':
-            offer_title = request.POST.get('title')
-            offer_body = request.POST.get('Body')
-            today_date=request.POST.get('today_date')
-            expiry_date=request.POST.get('expiry_Date')
-            # print(offer_title)
-            print(today_date)
-
-        offer_details=offerPost()
-
-        offer_details.title = offer_title
-        offer_details.Body=offer_body
-        offer_details.today_date=today_date
-    return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})
-
-
-# Create your views here.
-# def offerPost(request):
-    # user_id = request.session.get('user_id')
-    # if user_id is None:
-    #     return render(request,'login.html')
-    # else:
-    #     user_profile = userProfile.objects.get(user_id=user_id)
-    #     if request.method == 'POST':
-    #         offer_title = request.POST.get('title')
-    #         offer_body = request.POST.get('Body')
-    #         today_date=request.POST.get('today Date')
-    #         expiry_date=request.POST.get('expiry_Date')
-    #         print(offer_title)
-    #     # printing the user status
-    # return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})
+            title = request.POST.get('title')
+            body = request.POST.get('Body')
+            due_date=request.POST.get('expiry_date')
+            offer_image=request.POST.get('offer_picture')
+        
+            # Create an instance of OfferPost and assign the user_profile to user_id field
+            offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,today_date=date.today(),expiry_date=due_date,offer_picture=offer_image)
+            offer_details.save()
+    return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'today_date': date.today()})
