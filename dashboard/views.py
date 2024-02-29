@@ -23,7 +23,8 @@ def dashboard(request):
             offer_body = request.POST.get('Body')
             today_date=request.POST.get('today_date')
             expiry_date=request.POST.get('expiry_Date')
-            print(offer_title)
+            # print(offer_title)
+            print(today_date)
 
         offer_details=offerPost()
 
