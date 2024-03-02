@@ -13,6 +13,7 @@ def base_home(request):
     return render(request, 'base.html', context)
 
 def dashboard(request):
+    post=[]
     user_id = request.session.get('user_id')
     if user_id is None:
         return render(request,'login.html')
@@ -23,9 +24,15 @@ def dashboard(request):
             title = request.POST.get('title')
             body = request.POST.get('Body')
             due_date=request.POST.get('expiry_date')
-            offer_image=request.POST.get('offer_picture')
+            # offer_image=request.POST.get('offer_picture')
         
             # Create an instance of OfferPost and assign the user_profile to user_id field
-            offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,today_date=date.today(),expiry_date=due_date,offer_picture=offer_image)
+            offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,today_date=date.today(),expiry_date=due_date)
             offer_details.save()
+            # user_profile = userProfile.objects.get().all()
+            offer_details=offerPost.objects.get(offer_id=offer_id)
+            offer_id=offer_details.offer_title
+            post=post+offer_id
+            print(offer_id)
+            print(post)
     return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'today_date': date.today()})
