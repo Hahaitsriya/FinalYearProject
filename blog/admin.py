@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import dashboard
+from blog.models import blog
 
 # Register your models here.
-admin.site.register(dashboard)
+admin.site.register(blog)
