@@ -21,6 +21,8 @@ import dashboard.views
 # import blog.views
 from django.conf import settings
 from django.conf.urls.static import static
+import message.views
+
 
 urlpatterns = [
     path('',views.home,name="index"),
@@ -30,5 +32,9 @@ urlpatterns = [
     path('about/',views.about_page, name='about'),
     path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),
+    
+    path('inbox/<int:user_id>/', message.views.inbox, name='inbox'),
+    path('send_message/<int:sender_id>/<int:recipient_id>/', message.views.send_message, name='send_message'),
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
