@@ -30,9 +30,8 @@ def dashboard(request):
             offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,today_date=date.today(),expiry_date=due_date)
             offer_details.save()
             # user_profile = userProfile.objects.get().all()
-            offer_details=offerPost.objects.get(offer_id=offer_id)
-            offer_id=offer_details.offer_title
-            post=post+offer_id
-            print(offer_id)
-            print(post)
+            offer_detail=offerPost.objects.all()
+            # offer_title=offer_detail.offer_title
+            # post=post+offer_id
+            # print(offer_title)
     return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'today_date': date.today()})
