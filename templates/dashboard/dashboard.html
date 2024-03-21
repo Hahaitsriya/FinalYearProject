@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+{% block title %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dashboard</title>
+    </head>
+{% endblock %}
+{% block content %}
+    <body style="font-family: Times New Roman">
+        <div class="container-fluid">
+            <br>
+            {% for ids in offer_detail %}
+                <div class="card bg-secondary text-white">
+                    <div class="card-body">
+                        <h1 style="text-align: center;">{{ ids.offer_title }}</h1>
+                        <br>
+                        <h4>{{ ids.offer_body }}</h4>
+                        <br>
+                        <h5>{{ ids.today_date }}</h5> 
+                        <br> 
+                        <h5>{{ ids.expiry_date }}</h5> 
+                        <br>                           
+                        <h5>{{ ids.offer_location }}</h5>
+                        <br>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-left: 1100px;">
+                            See more >
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">Register on {{ ids.offer_title }} </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            {{ ids.offer_explaination }}
+                        </div>
+                
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Register</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}            
+        </div>
+    </body>
+</html>
+{% endblock %}
+<li>{{ ids.offer_explaination }}</li>
