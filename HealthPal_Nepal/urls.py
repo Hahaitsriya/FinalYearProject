@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from authentication import views
 import dashboard.views
-# import blog.views
+import blogs.views
 from django.conf import settings
 from django.conf.urls.static import static
 import message.views
@@ -33,6 +33,8 @@ urlpatterns = [
     path('about/',views.about_page, name='about'),
     path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),
+    path('upload_blog/',blogs.views.blog_upload,name='upload_blog'),
+    path('blog/',blogs.views.blog,name='blog'),
     
     path('inbox/<int:user_id>/', message.views.inbox, name='inbox'),
     path('send_message/<int:sender_id>/<int:recipient_id>/', message.views.send_message, name='send_message'),
