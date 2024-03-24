@@ -1,29 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from authentication.models import userProfile
+from dashboard.models import offerPost
 from django.http import HttpResponse ,HttpRequest
-
-# Create your views here.
-def login(request):
-    return render(request,'login.html')
-
-def home(request):
-    return render(request,'index.html')
-
-def signup(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        email=request.POST.get('email_Address')
-        status=request.POST.get('status')
-
-        print(username)
-        print(status)
-
-        status=request.POST.get('')
-     
-    return render(request,'signup.html')
-
-
+import json
 # Add below existing imports
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
@@ -33,11 +12,99 @@ from .token import account_activation_token
 from django.core.mail import EmailMessage
 from django.contrib import messages
 
-# so we can reference the user model as User instead of CustomUser
-user = userProfile()
+
+# Create your views here.
+
+#For displaying inital page for the viewers.
+def home(request):
+    #redirect to the index page.
+    return render(request,'index.html')
+
+#For users to login.
+def login(request):
+    error = ""
+    #Fetch the data from login form into the variable using post method.
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Authenticate the user
+        user = userProfile.objects.filter(username=username, user_password=password).exists() 
+        #To check if a user with the given username and password exists.
+        #There is use of filter and exists methods.
+
+        if user:
+            user_Profile = userProfile.objects.get(username=username, user_password=password)
+            # Fetching all the data into the sessions.
+            request.session['user_id'] = user_Profile.user_id
+            request.session['status'] = user_Profile.user_status
+            user_status = user_Profile.user_status
+
+            #Saving into the session.
+            request.session.save()
+
+            #if user exists redirect to dashboard url.
+            return redirect('dashboard')
+        else:
+            #else show an error.
+            error = "Username or password is incorrect."
+    return render(request, 'login.html', {'error': error}) 
+
+# def base_home(request):
+#     # Retrieve user status from session
+#     user_status = request.session.get('user_status')
+#     context = {
+#         'user_status': user_status,
+#     }
+#     return render(request, 'base.html', context)
+
+# def dashboard(request):
+#     user_id = request.session.get('user_id')
+#     if user_id is None:
+#         return render(request,'login.html')
+#     else:
+#         user_profile = userProfile.objects.get(user_id=user_id)
+    
+#         if request.method == 'POST':
+#             offer_title = request.POST.get('title')
+#             offer_body = request.POST.get('Body')
+#             today_date=request.POST.get('today Date')
+#             expiry_date=request.POST.get('expiry_Date')
+#             print(offer_title)
+#     return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})
+
+
+def signup(request):
+    #Fetch data from html and css form. 
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        contact=request.POST.get('contact')
+        email=request.POST.get('email_Address')
+        address=request.POST.get('home_Address')
+        image=request.POST.get('image_upload')
+        status=request.POST.get('status')
+
+        # Loading the feilds from authentication.models(userProfile) into the variable user. 
+        user=userProfile()
+
+        #Loading the data from into the database.
+        user.username = username
+        user.user_password = password
+        user.user_contact=contact
+        user.user_email=email
+        user.user_address=address
+        user.user_profile=image
+        user.user_status =status
+        print(status)
+        #Saves the data.
+        user.save()
+    return render(request,'signup.html')
 
 # send email with verification link
 def verify_email(request):
+    # so we can reference the user model as User instead of CustomUser
+    user = userProfile()
     if request.method == "POST":
         if request.user.email_is_verified != True:
             current_site = get_current_site(request)
@@ -60,3 +127,6 @@ def verify_email(request):
         else:
             return render('signup')
     return render(request, 'user/verify_email.html')
+
+def about_page(request):
+    return render(request,'about.html')

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+{% block title %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Upload an Blog</title>
+    </head>
+{% endblock %}
+{% block content %}
+<body style="font-family: Times New Roman">
+    <div class="container-fluid">
+        <br>
+        {% for ids in blog_details %}
+            <div class="card bg-secondary text-white">
+                <div class="card-body">
+                    <h1 style="text-align: center;">{{ ids.blog_title }}</h1>
+                    <br>
+                    <h4>{{ ids.blog_body }}</h4>
+                    <br>
+                    <h5>{{ ids.blog_date }}</h5> 
+                    <br> 
+                    <br>
+                    <img src="{{ ids.blog_images }}" alt="Blog Image">
+                    <br>                                         
+                </div>
+            </div>
+            <br>
+            <br>
+        {% endfor %}  
+    </div>
+</body>
+{% endblock %}

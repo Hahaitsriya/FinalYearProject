@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .navtitle
+        {
+            margin-left:60px;
+            margin-right:70px;
+        }
+    </style>
+    <header>
+        {% if status == "user" or status == "doctor" %}
+            <!-- Light background navigation bar with a static file image and two primary buttons. -->
+            <nav class="navbar bg-light">
+                <!-- Container with 100% width  -->
+                <div class="container-fluid">
+                    <a class="navbar-brand">
+                        <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+                    </a>
+                    <div style="padding-left: 45px;">
+                        <!-- Appointment icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="140" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16" role="button">
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                        </svg>
+                        <!-- Message icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="130" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                            <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                        </svg>
+                        <!-- Profile icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                        <!-- Help icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="16" fill="currentColor" class="bi bi-question-octagon" viewBox="0 0 16 16">
+                            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+        {% else %}
+            <!-- Light background navigation bar with a static file image and two primary buttons. -->
+            <nav class="navbar bg-light">
+                <!-- Container with 100% width  -->
+                <div class="container-fluid">
+                    <a class="navbar-brand">
+                        <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+                    </a>
+                    <div>
+                        <!-- Message icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="130" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                            <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                        </svg>
+                        <!-- Profile icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                        <!-- Help icon in svg and path -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="16" fill="currentColor" class="bi bi-question-octagon" viewBox="0 0 16 16">
+                            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+        {% endif %} 
+        {% if status == "user" %}
+            <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <!-- Nav bar with section link -->
+                        <li class="nav-item">
+                            <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Dashboard</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Chatbox</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'inbox' user_id=user_id %}" class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Settings</h7></a>
+                        </li>        
+                        <li class="nav-item">
+                            <a href="{% url 'blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{%url 'about'%}" class="btn btn-primary" role="button"><h7 class="navtitle">About us</h7></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> 
+            <!-- SeARCH iMPLEMENTATION -->
+        {% elif status == "doctor" %}
+            <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <!-- Nav bar with section link -->
+                        <li class="nav-item">
+                            <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Dashboard</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Sessions</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'inbox' user_id=user_id %}" class="btn btn-primary" role="button"><h7 class="navtitle">Message</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'upload_blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Upload Blog</h7></a>
+                        </li>        
+                        <li class="nav-item">
+                            <a href="{% url 'blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{%url 'about'%}" class="btn btn-primary" role="button"><h7 class="navtitle">About us</h7></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> 
+        {% else %} 
+            <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <!-- Nav bar with section link -->
+                        <li class="nav-item">
+                            <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Dashboard</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Doctors</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{%url 'post_dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Post Offer</h7></a>
+                        </li>        
+                        <li class="nav-item">
+                            <a href="{% url 'blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{%url 'about'%}" class="btn btn-primary" role="button"><h7 class="navtitle">About us</h7></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> 
+        {% endif %}    
+    </header>
+{% block content %}
+{% endblock %}   
+</html>
