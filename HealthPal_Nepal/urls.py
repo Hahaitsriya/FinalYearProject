@@ -39,5 +39,5 @@ urlpatterns = [
     path('inbox/<int:user_id>/', message.views.inbox, name='inbox'),
     path('send_message/<int:sender_id>/<int:recipient_id>/', message.views.send_message, name='send_message'),
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 

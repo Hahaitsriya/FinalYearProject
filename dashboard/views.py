@@ -26,7 +26,7 @@ def post_dashboard(request):
             # Create an instance of OfferPost and assign the user_profile to user_id field
             offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,offer_explaination=explaination,offer_location=location,today_date=date.today(),expiry_date=due_date)
             offer_details.save()
-    return render(request,'dashboard/upload_dashboard.html',{'user_id':user_id,'today_date':date.today()})
+    return render(request,'dashboard/upload_dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'today_date':date.today()})
 
 def dashboard(request):
     user_id = request.session.get('user_id')
@@ -35,6 +35,4 @@ def dashboard(request):
     else:
         user_profile = userProfile.objects.get(user_id=user_id)
         offer_detail=offerPost.objects.all()
-        print(offer_detail)
-        # print(titles)
     return render(request,'dashboard/dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})

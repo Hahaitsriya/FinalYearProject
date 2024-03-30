@@ -29,7 +29,7 @@
                         <br>                           
                         <h5>{{ ids.offer_location }}</h5>
                         <br>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-left: 1100px;">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{ ids.offer_id }}" style="margin-left: 1100px;" id="button">
                             See more >
                         </button>
                     </div>
@@ -37,13 +37,13 @@
                 <br>
                 <br>
                 <!-- The Modal -->
-                <div class="modal" id="myModal">
+                <div class="modal" id="myModal{{ ids.offer_id }}">
                     <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                 
                         <!-- Modal Header -->
                         <div class="modal-header">
-                        <h4 class="modal-title">Register on {{ ids.offer_title }} </h4>
+                        <h4 class="modal-title">Register on {{  ids.offer_title }} </h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                 
@@ -57,7 +57,6 @@
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Register</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         </div>
-                
                     </div>
                     </div>
                 </div>

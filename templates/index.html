@@ -124,14 +124,27 @@
       </div>
     </section>
     <section id="index_blog">
-      <h1>Needs to route posts with the blod section. OK bye.</h1>
       <div class="container-fluid">
-        <img src="static\Khali.jpg">
-        <h1>Needs to route posts with the blod section. OK bye.</h1>
-        <h1>Needs to route posts with the blod section. OK bye.</h1>
-        <h1>Needs to route posts with the blod section. OK bye.</h1>
-        <h1>Needs to route posts with the blod section. OK bye.</h1>
+        {% block content %}
+          <div class="card bg-dark text-white">
+            <div class="card-body">
+              {% if random_post %}
+              <h2>{{ random_post.blog_title }}</h2>
+              <p>{{ random_post.blog_body }}</p>
+              <!-- Display other attributes of the random post as needed -->
+              {% else %}
+                <p>No blog posts available.</p>
+              {% endif %}
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'login' %}" class="btn btn-primary" role="button">
+                  <h7 class="navtitle">Know more</h7>
+                </a>
+              </div>
+              <!-- This link needs to redirect to the login. -->
+            </div>
+          </div>
       </div>
+      </td>
     </section>
     <section id="index_recommendations">
       <!-- Created a table to organize the hospital option showcase. -->
@@ -276,7 +289,6 @@
     </div>
     <!-- Copyright -->
   </footer>
-  <!-- Footer -->
-  {% block content %}
   {% endblock %}
+  <!-- Footer -->
 </html>

@@ -11,14 +11,25 @@ from django.template.loader import render_to_string
 from .token import account_activation_token
 from django.core.mail import EmailMessage
 from django.contrib import messages
+from blogs.models import blogs
+import random
+
 
 
 # Create your views here.
 
 #For displaying inital page for the viewers.
 def home(request):
+     # Retrieve all blog posts
+    all_posts = blogs.objects.all()
+
+    if all_posts:
+        # Select a random blog post
+        random_post = random.choice(all_posts)
+    else:
+        random_post = None
     #redirect to the index page.
-    return render(request,'index.html')
+    return render(request,'index.html', {'random_post': random_post})
 
 #For users to login.
 def login(request):
@@ -49,30 +60,6 @@ def login(request):
             #else show an error.
             error = "Username or password is incorrect."
     return render(request, 'login.html', {'error': error}) 
-
-# def base_home(request):
-#     # Retrieve user status from session
-#     user_status = request.session.get('user_status')
-#     context = {
-#         'user_status': user_status,
-#     }
-#     return render(request, 'base.html', context)
-
-# def dashboard(request):
-#     user_id = request.session.get('user_id')
-#     if user_id is None:
-#         return render(request,'login.html')
-#     else:
-#         user_profile = userProfile.objects.get(user_id=user_id)
-    
-#         if request.method == 'POST':
-#             offer_title = request.POST.get('title')
-#             offer_body = request.POST.get('Body')
-#             today_date=request.POST.get('today Date')
-#             expiry_date=request.POST.get('expiry_Date')
-#             print(offer_title)
-#     return render(request,'dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})
-
 
 def signup(request):
     #Fetch data from html and css form. 
@@ -129,4 +116,12 @@ def verify_email(request):
     return render(request, 'user/verify_email.html')
 
 def about_page(request):
-    return render(request,'about.html')
+    user_id = request.session.get('user_id')
+    if user_id is None:
+        return render(request,'login.html')
+    else:
+        user_profile = userProfile.objects.get(user_id=user_id)
+        offer_detail=offerPost.objects.all()
+        print(offer_detail)
+        # print(titles)
+    return render(request,'about.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})

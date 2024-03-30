@@ -19,15 +19,23 @@
         {% for ids in blog_details %}
             <div class="card bg-secondary text-white">
                 <div class="card-body">
-                    <h1 style="text-align: center;">{{ ids.blog_title }}</h1>
-                    <br>
-                    <h4>{{ ids.blog_body }}</h4>
-                    <br>
-                    <h5>{{ ids.blog_date }}</h5> 
-                    <br> 
-                    <br>
-                    <img src="{{ ids.blog_images }}" alt="Blog Image">
-                    <br>                                         
+                    <table aria-colspan="2" class="container-fluid">
+                        <th> <h1 style="text-align: center;">{{ ids.blog_title }}</h1> </th>
+                        <tr>
+                            <td>
+                                <br>
+                                <h4>{{ ids.blog_body }}</h4>
+                                <br>
+                                <h5>{{ ids.blog_date }}</h5> 
+                                <br>  
+                            </td>
+                            <td style="text-align: right;">
+                                <br>
+                                <img src="{{ ids.blog_images.url }}" alt="Blog Image" class="img-responsive" width="460" height="345">
+                                <br>           
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <br>
