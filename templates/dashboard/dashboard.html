@@ -11,14 +11,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dashboard</title>
     </head>
-{% endblock %}
-{% block content %}
+    <script>
+        function showChildModal() {
+            $('#mychildModal').modal('show');
+            // Manually remove backdrop if it exists
+            $('.modal-backdrop').remove();
+            // Disable backdrop scroll
+            $('body').addClass('modal-open');
+        }
+    
+        function closemyModal() {
+            $('#myModal').modal('hide');
+        }
+    </script>
+    {% endblock %}
+    {% block content %}
     <body style="font-family: Times New Roman">
         <div class="container-fluid">
             <br>
             {% for ids in offer_detail %}
-                <div class="card bg-secondary text-white">
+                <div class="card bg-light text-dark">
                     <div class="card-body">
+                        <h2>{{ids.user_id.username}}</h2>
+                        <h2>{{ids.user_id.user_contact}}</h2>
+                        <h2>{{ids.user_id}}</h2>
                         <h1 style="text-align: center;">{{ ids.offer_title }}</h1>
                         <br>
                         <h4>{{ ids.offer_body }}</h4>
@@ -43,8 +59,7 @@
                 
                         <!-- Modal Header -->
                         <div class="modal-header">
-                        <h4 class="modal-title">Register on {{  ids.offer_title }} </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <h4 class="modal-title">Register on {{  ids.offer_title }}</h4>
                         </div>
                 
                         <!-- Modal body -->
@@ -54,10 +69,24 @@
                 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Register</button>
+                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#mychildModal{{ ids.offer_id }}" onclick="showChildModal()">Register</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
+                    </div>
+                </div>
+
+                <!-- The  Child Modal -->
+                <div class="modal" id="mychildModal{{ ids.offer_id }}">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thank you {{ username }} </h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <h3> <span class="badge bg-secondary">Registered </span></h3>
+                        </div>
                     </div>
                 </div>
             {% endfor %}            

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+{% block title %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Doctor Recommendation</title>
+    </head>
+{% endblock %}
+{% block content %}
+    <body style="font-family: Times New Roman">
+        <div class="container-fluid">
+            <h2> Doctors For You : </h2>
+            <br>
+            {% for profile in profiles %}
+            <div class="container mt-3">
+                <div class="card" style="width:300px">
+                  <img class="card-img-top" src=" " alt="Card image" style="width:100%">
+                  <div class="card-body">
+                    <h4 class="card-title"> {{ profile.username }} </h4>
+                    <p class="card-text">
+                        <a href="mailto:{{profile.user_email}}">  {{ profile.user_email }} </a>
+                        <h6> {{profile.user_contact}} </h6>
+                        <h6> {{profile.user_address}} </h6>
+                    </p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                  </div>
+                </div>
+                <br>
+              </div>
+            {% endfor %}
+        </div>
+    </body>
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from transformers import pipeline
+from django.db.models import Q
+from authentication.models import userProfile
 
 label2id = {
 'emotional pain':0,
@@ -31,59 +33,72 @@ label2id = {
 
 
 hospital_maping = {
-    1:'pschyology',
-    2:'dermatology',
-    3:'cardiology',
-    4:'physiology',
-    5:'dermatology',
-    6:'gastrology',
-    7:'orthopedology',
-    8:'epidemiology',
-    9:'neurology',
-    10:'',
-    11 :"",
-    12 :"",
-    13 :"",
-    14 :"",
-    15 :"",
-    16 : "",
-    17 :"",
-    18 : "",
-    19 : "",
-    20 : "",
-    21 : "",
-    22 : "",
-    23 : "",
-    24 : "",
+    1:'Pschyology',
+    2:'Trichology',
+    3:'Cardiology',
+    4:'Physiology',
+    5:'Dermatology',
+    6:'Gastrology',
+    7:'Orthopedology',
+    8:'Epidemiology',
+    9:'Neurology',
+    10:'Hematology',
+    11 :'ENT',
+    12 :'Neurology',
+    13 :'Nutritionists',
+    14 :'PCP',
+    15 :'Orthopodology',
+    16 : 'Physiology',
+    17 :'Physiology',
+    18 : 'Opthamology',
+    19 : 'Dermatology',
+    20 : 'Myology',
+    21 : 'PCP',
+    22 : 'Pulmonology',
+    23 : 'ENT',
+    24 : 'Physiology',
 }
 
 def hospital_type(query):
-
     # Mapping labels to hospital types
     label_to_hospital_mapping = {}
-
+    
     for label, id_ in label2id.items():
         hospital_type = hospital_maping.get(id_,label)
-        label_to_hospital_mapping[label] = hospital_type
-
-    #  
+        label_to_hospital_mapping[label] = hospital_type         
     classifier = pipeline("sentiment-analysis", model="itsriya/my_hospital_reco")
+       
     result = classifier(query)
     final_ouput = result[0]['label']
-
+    
     # Retrieve the value from label_to_hospital_mapping
-
-    output = label_to_hospital_mapping[final_ouput]
-  
+    output = label_to_hospital_mapping[final_ouput] 
     return output
 
-# Create your views here.
-def message_response(request):
-    
-    query = "i have heart pain"
-    
-    hos_type = hospital_type(query)
-    
-    return render(request,'chatbot.html',{'hos_type':hos_type})
 
+# view function for the chatbox
+def chatbox(request):
+    user_id = request.session.get('user_id')
+    user_profile = userProfile.objects.get(user_id=user_id)
+    if request.method == 'POST':
+        q = request.POST.get('q')
+        # Process the user input (q) and generate a response
+        response = process_user_input(q)
+        # print(response)
+        return render(request, 'chatbot.html', {'response': response})
+    else:
+        # Handle non-POST requests (e.g., GET requests)
+        return render(request, 'chatbot.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})
+
+
+# Processing the query from the users
+def process_user_input(q):
+    
+    query = hospital_type(q)
+    print(query)
+   
+    profile = userProfile.objects.filter(
+        Q(user_speciality__exact=query)
+    )
+    return profile
     

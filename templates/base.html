@@ -54,14 +54,17 @@
                 <ul class="navbar-nav">
                     <!-- Nav bar with section link -->
                     <li class="nav-item">
-                        <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Dashboard</h7></a>
+                        <a href="{%url 'dashboard'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Home</h5></a>
                     </li>
                     {% if status == "user" %}
                         <li class="nav-item">
-                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Chatbox</h7></a>
+                            <a href="{%url 'chatbox'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Chatbox</h5></a>
                         </li>
                         <li class="nav-item">
-                            <a href=" " class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
+                            <a href=" " class="btn btn-primary" role="button"><h5 class="navtitle">Messages</h5></a>
+                        </li> 
+                        <li class="nav-item">
+                            <a href="{% url 'user_doctor'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Doctors</h5></a>
                         </li> 
                     {% endif %}
                     {% if status == "doctor" %}
@@ -72,7 +75,7 @@
                             <a href="{% url 'upload_blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Upload Blog</h7></a>
                         </li>
                         <li class="nav-item">
-                            <a href=" " class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
+                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
                         </li>  
                     {% endif %}
                     {% if status == "hospital" %}
@@ -84,10 +87,10 @@
                         </li>  
                     {% endif %}      
                     <li class="nav-item">
-                        <a href="{% url 'blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+                        <a href="{% url 'blog'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Blog</h5></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{%url 'about'%}" class="btn btn-primary" role="button"><h7 class="navtitle">About us</h7></a>
+                        <a href="{%url 'about'%}" class="btn btn-primary" role="button"><h5 class="navtitle">About us</h5></a>
                     </li>   
                 </ul>
             </div>

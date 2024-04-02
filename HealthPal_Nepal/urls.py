@@ -15,13 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from authentication import views
 import dashboard.views
 import blogs.views
 from django.conf import settings
 from django.conf.urls.static import static
 import message.views
+from chatbox.views import chatbox
 
 
 urlpatterns = [
@@ -30,12 +31,13 @@ urlpatterns = [
     path('signup/',views.signup,name="signup"),
     path('dashboard/',dashboard.views.dashboard,name="dashboard"),
     path('post_dashboard/',dashboard.views.post_dashboard,name='post_dashboard'),
+    path('user_doctor/',dashboard.views.user_doctor, name='user_doctor'),
     path('about/',views.about_page, name='about'),
     path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),
     path('upload_blog/',blogs.views.blog_upload,name='upload_blog'),
     path('blog/',blogs.views.blog,name='blog'),
-    
+    path('chatbox/',chatbox,name='chatbox'),
     path('inbox/<int:user_id>/', message.views.inbox, name='inbox'),
     path('send_message/<int:sender_id>/<int:recipient_id>/', message.views.send_message, name='send_message'),
     

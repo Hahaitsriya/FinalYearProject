@@ -3,6 +3,7 @@ from dashboard.models import offerPost
 from authentication.models import userProfile
 from authentication.views import *
 from datetime import date
+from django.contrib.auth.decorators import login_required
 
 def base_home(request):
     # Retrieve user status from session
@@ -28,6 +29,7 @@ def post_dashboard(request):
             offer_details.save()
     return render(request,'dashboard/upload_dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'today_date':date.today()})
 
+@login_required
 def dashboard(request):
     user_id = request.session.get('user_id')
     if user_id is None:
@@ -36,3 +38,12 @@ def dashboard(request):
         user_profile = userProfile.objects.get(user_id=user_id)
         offer_detail=offerPost.objects.all()
     return render(request,'dashboard/dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})
+
+@login_required
+def user_doctor(request):
+    user_id = request.session.get('user_id')
+    user_profile = userProfile.objects.get(user_id=user_id)
+    profiles = userProfile.objects.filter(user_status="doctor")
+    return render(request, 'user_doctor.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'profiles': profiles})
+    
+    
