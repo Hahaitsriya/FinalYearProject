@@ -2,7 +2,6 @@ from django.shortcuts import render
 from .models import userProfile
 from blogs.models import blogs
 from datetime import date
-import random
 
 # Create your views here.
 def blog_upload(request):
@@ -18,7 +17,7 @@ def blog_upload(request):
         blog_details.save()
         print(blog_details)
     
-    return render(request,'blog/upload_blog.html', {'user_id': user_id, 'blog_date': date.today()})
+    return render(request,'blog/upload_blog.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status, 'blog_date': date.today()})
 
 def blog(request):
     user_id = request.session.get('user_id')
@@ -29,13 +28,3 @@ def blog(request):
         blog_details=blogs.objects.all()
         print(blog_details)
     return render(request,'blog/blog.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'blog_details':blog_details})
-
-
-# def random_post(request):
-#     # Fetch all posts
-#     all_posts = blogs.objects.get('blog_title')
-#     print(all_posts)
-    
-
-#     return render(request, 'index.html', {'all_posts': all_posts})
-   

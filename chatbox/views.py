@@ -80,12 +80,13 @@ def hospital_type(query):
 def chatbox(request):
     user_id = request.session.get('user_id')
     user_profile = userProfile.objects.get(user_id=user_id)
+    
     if request.method == 'POST':
         q = request.POST.get('q')
         # Process the user input (q) and generate a response
         response = process_user_input(q)
         # print(response)
-        return render(request, 'chatbot.html', {'response': response})
+        return render(request, 'chatbot.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'response': response})
     else:
         # Handle non-POST requests (e.g., GET requests)
         return render(request, 'chatbot.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status})

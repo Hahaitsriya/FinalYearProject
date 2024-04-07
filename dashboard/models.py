@@ -11,8 +11,9 @@ class offerPost(models.Model):
     offer_location=models.CharField(max_length=50,verbose_name="location",null=False,blank=True)
     today_date=models.DateField(verbose_name="today_date", auto_now_add=True)
     expiry_date=models.DateField(verbose_name="expiry_Date", blank=True, null=False,default=timezone.now)
-    # offer_picture=models.ImageField(verbose_name="Post Image",upload_to='media\media\offerPost')
+    offer_picture=models.ImageField(verbose_name="Post Image",upload_to='staic/offerPost',  null=True)
     user_id = models.ForeignKey(userProfile, on_delete=models.CASCADE)
+
 
     
 

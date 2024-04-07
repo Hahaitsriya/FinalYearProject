@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <br>
         {% for ids in blog_details %}
-            <div class="card bg-secondary text-white">
+            <div class="card bg-light text-dark">
                 <div class="card-body">
                     <table aria-colspan="2" class="container-fluid">
                         <th> <h1 style="text-align: center;">{{ ids.blog_title }}</h1> </th>
@@ -29,16 +29,19 @@
                                 <h5>{{ ids.blog_date }}</h5> 
                                 <br>  
                             </td>
-                            <td style="text-align: right;">
+                            <td style="text-align: right;" >
+                                <div class="container">
+                                    <img src="{{ ids.blog_images.url }}" alt="Blog Image" style="height: 350px; width: 550px; object-fit: contain;">
+                                    <br>           
+                                </div>
                                 <br>
-                                <img src="{{ ids.blog_images.url }}" alt="Blog Image" class="img-responsive" width="460" height="345">
-                                <br>           
                             </td>
                         </tr>
                     </table>
+                    <h4> Posted by : {{ids.user_id.username}}</h4>
+                    <a href="mailto:{{ids.user_id.user_email}}">{{ ids.user_id.user_email }}</a>
                 </div>
             </div>
-            <br>
             <br>
         {% endfor %}  
     </div>

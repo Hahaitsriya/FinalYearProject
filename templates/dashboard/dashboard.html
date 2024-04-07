@@ -11,41 +11,73 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dashboard</title>
     </head>
-    <script>
-        function showChildModal() {
-            $('#mychildModal').modal('show');
-            // Manually remove backdrop if it exists
-            $('.modal-backdrop').remove();
-            // Disable backdrop scroll
-            $('body').addClass('modal-open');
-        }
-    
-        function closemyModal() {
-            $('#myModal').modal('hide');
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#registerButton').click(function() {
+            // Perform AJAX request to Django view
+            var username = $('#username').val();
+            var email = $('#user_email').val();
+            var contact =$('#user_contact').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/register/',  // URL to your Django view
+                data: {
+                    username: username,
+                    user_email: user_email,
+                    user_contact: user_contact ,
+                },
+                success: function(response) {
+                    // Handle successful response
+                    alert('Registration successful');
+                    // You can redirect, show a message, or perform any other action
+                },
+                error: function(xhr, errmsg, err) {
+                    // Handle error
+                    console.log(xhr.status + ": " + xhr.responseText); // log to console
+                    // You can show an error message to the user or handle the error in other ways
+                }
+            });
+        });
+    });
+</script>
+
     {% endblock %}
     {% block content %}
     <body style="font-family: Times New Roman">
-        <div class="container-fluid">
+        <div class="container-fluid" >
             <br>
             {% for ids in offer_detail %}
                 <div class="card bg-light text-dark">
                     <div class="card-body">
-                        <h2>{{ids.user_id.username}}</h2>
-                        <h2>{{ids.user_id.user_contact}}</h2>
-                        <h2>{{ids.user_id}}</h2>
+                        <table>
+                            <td>
                         <h1 style="text-align: center;">{{ ids.offer_title }}</h1>
                         <br>
                         <h4>{{ ids.offer_body }}</h4>
                         <br>
-                        <h5>{{ ids.today_date }}</h5> 
-                        <br> 
-                        <h5>{{ ids.expiry_date }}</h5> 
-                        <br>                           
+                        <table aria-colspan="2" style="width:100%;">
+                            <tr>
+                                <td style="padding-right: 10px;">
+                                    <h5>{{ ids.today_date }}</h5>
+                                </td>
+                                <td style="padding-left: 10px;">
+                                    <h5>{{ ids.expiry_date }}</h5>
+                                </td>
+                            </tr>
+                        </table> 
+                        <br>                                   
                         <h5>{{ ids.offer_location }}</h5>
                         <br>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{ ids.offer_id }}" style="margin-left: 1100px;" id="button">
+                        <h4> Posted by: {{ids.user_id.username}}</h4>
+                        </td>
+                        <!-- <td>
+                            <img src="{ }" alt="Offer Image" style="height: 350px; width: 550px; object-fit: contain;">
+                                <br>  
+                        </td> -->
+                        </table>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-left: 1100px;" id="button">
                             See more >
                         </button>
                     </div>
@@ -53,7 +85,7 @@
                 <br>
                 <br>
                 <!-- The Modal -->
-                <div class="modal" id="myModal{{ ids.offer_id }}">
+                <div class="modal" id="myModal">
                     <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                 
@@ -69,26 +101,12 @@
                 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#mychildModal{{ ids.offer_id }}" onclick="showChildModal()">Register</button>
+                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#myModal" id="registerButton" data-bs-dismiss="modal">Register</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                     </div>
-                </div>
-
-                <!-- The  Child Modal -->
-                <div class="modal" id="mychildModal{{ ids.offer_id }}">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Thank you {{ username }} </h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <h3> <span class="badge bg-secondary">Registered </span></h3>
-                        </div>
-                    </div>
-                </div>
+                </div>                            
             {% endfor %}            
         </div>
     </body>

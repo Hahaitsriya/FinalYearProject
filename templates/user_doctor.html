@@ -11,29 +11,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Doctor Recommendation</title>
     </head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three columns horizontally */
+            gap: 20px;
+            padding: 20px;
+            justify-items: center; /* Center items horizontally */
+                 align-items: center; /* Vertical alignment */
+        }
+        .card {
+            width: 300px; /* Set the width of each card */
+        }
+    </style>
 {% endblock %}
 {% block content %}
-    <body style="font-family: Times New Roman">
-        <div class="container-fluid">
-            <h2> Doctors For You : </h2>
-            <br>
+<body style="font-family: Times New Roman">
+    <div class="container-fluid">
+        <h2>Doctors For You:</h2>
+        <br>
+        <div class="row" style=" margin-left:150px; width: 1000px;">
             {% for profile in profiles %}
-            <div class="container mt-3">
-                <div class="card" style="width:300px">
-                  <img class="card-img-top" src=" " alt="Card image" style="width:100%">
-                  <div class="card-body">
-                    <h4 class="card-title"> {{ profile.username }} </h4>
-                    <p class="card-text">
-                        <a href="mailto:{{profile.user_email}}">  {{ profile.user_email }} </a>
-                        <h6> {{profile.user_contact}} </h6>
-                        <h6> {{profile.user_address}} </h6>
-                    </p>
-                    <a href="#" class="btn btn-primary">See Profile</a>
-                  </div>
+            <div class="col-sm">
+                <div class="card">
+                    <img class="card-img-top" src="" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ profile.username }}</h4>
+                        <p class="card-text">
+                            <a href="mailto:{{profile.user_email}}">{{ profile.user_email }}</a>
+                            <br>
+                            <span>{{ profile.user_contact }}</span>
+                            <br>
+                            <span>{{ profile.user_address }}</span>
+                        </p>
+                        <a href="#" class="btn btn-primary">See Profile</a>
+                        <a href="{% url 'send_message' sender_id=profile.user_id recipient_id=request.user.id %}"  class="btn btn-primary">Send Message </a>
+                    </div>
                 </div>
-                <br>
-              </div>
+            </div>
             {% endfor %}
         </div>
-    </body>
+    </div>  
+</body>
 {% endblock %}

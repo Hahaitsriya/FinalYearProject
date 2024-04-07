@@ -5,7 +5,7 @@ from .models import userProfile,message
 def inbox(request, user_id):
     user = userProfile.objects.get(pk=user_id)
     messages = user.received_messages.all()
-    return render(request, 'chat/inbox.html', {'messages': messages})
+    return render(request, 'chat/inbox.html', {'user_id':user_id,'messages': messages})
 
 def send_message(request, sender_id, recipient_id):
     if request.method == 'POST':

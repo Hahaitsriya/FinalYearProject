@@ -14,7 +14,7 @@
     <style>
         input[type="search"] {
             border-radius: 5px;
-            padding: 10px;
+            padding:15px;
             width: 100%;
             border: 2px solid #ccc;
             transition: border-color 0.3s;
@@ -74,45 +74,52 @@
         .card-title {
             margin-bottom: 10px;
         }
+
+
+
     </style>
+
 </head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <form action="{% url 'chatbox' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="search" name="q" placeholder="Enter your health problem here..." class="form-control" />
-                </form>
-            </div>
+{% block content %}
+  </html>
+</br>
+</br>
+<div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form action="{% url 'chatbox' %}" method="POST">
+                {% csrf_token %}
+                <input type="search" name="q" placeholder="Enter your health problem here..." class="form-control" />
+            </form>
         </div>
     </div>
+</div>
 
-    {% block content %}
-    <div class="container">
-        <div class="row">
-            {% if response %}
-                {% for profile in response %}
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2 class="card-title">{{ profile.username }}</h2>
-                                <p>Email: {{ profile.user_email }}</p>
-                                <p>Contact: {{ profile.user_contact }}</p>
-                                <p>Contact: {{ profile.user_address }}</p>
-                                <!-- Add more fields as needed -->
-                            </div>
+<div class="container">
+    <div class="row">
+        {% if response %}
+            {% for profile in response %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ profile.username }}</h2>
+                            <p>Email: {{ profile.user_email }}</p>
+                            <p>Contact: {{ profile.user_contact }}</p>
+                            <p>Contact: {{ profile.user_address }}</p>
+                            <!-- Add more fields as needed -->
                         </div>
                     </div>
-                {% endfor %}
-            {% else %}
-                <div class="col-md-12">
-                    <p>No results found.</p>
                 </div>
-            {% endif %}
-        </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>No results found.</p>
+            </div>
+        {% endif %}
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
 
+</div>
 </body>
 </html>

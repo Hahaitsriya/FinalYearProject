@@ -16,13 +16,13 @@
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <header>
+    <header style="font-family: Times New Roman">
         <!-- Light background navigation bar with a static file image and two primary buttons. -->
         <nav class="navbar bg-light">
             <!-- Container with 100% width  -->
             <div class="container-fluid">
-                <a class="navbar-brand">
-                    <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+                <a class="navbar-brand" href="{%url 'dashboard'%}">
+                    <img src="{% static 'logo_icon.png'%}" style="width: 190px; height: 80px;"> 
                 </a>
                 <div style="padding-left: 45px;">
                     {% if status == "user" or status == "doctor" %}
@@ -69,21 +69,21 @@
                     {% endif %}
                     {% if status == "doctor" %}
                         <li class="nav-item">
-                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Appointment</h7></a>
+                            <a href="" class="btn btn-primary" role="button"><h5 class="navtitle">Session</h5></a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'upload_blog'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Upload Blog</h7></a>
+                            <a href="{% url 'upload_blog'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Upload Blog</h5></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle">Messages</h7></a>
+                            <a href="{% url 'inbox' user_id=request.user_id %}" class="btn btn-primary" role="button"><h5 class="navtitle">Chats</h5></a>
                         </li>  
                     {% endif %}
                     {% if status == "hospital" %}
                         <li class="nav-item">
-                            <a href="" class="btn btn-primary" role="button"><h7 class="navtitle"> Doctors</h7></a>
+                            <a href="" class="btn btn-primary" role="button"><h5 class="navtitle"> Doctors</h5></a>
                         </li>
                         <li class="nav-item">
-                            <a href="{%url 'post_dashboard'%}" class="btn btn-primary" role="button"><h7 class="navtitle">Post Offer</h7></a>
+                            <a href="{%url 'post_dashboard'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Post Offer</h5></a>
                         </li>  
                     {% endif %}      
                     <li class="nav-item">

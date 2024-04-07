@@ -30,7 +30,7 @@
       <div class="container-fluid">
         <a class="navbar-brand">
           {% load static %}
-              <img src="{% static 'logo.png'%}" style="width: 130px; height: 50px;"> 
+              <img src="{% static 'logo_icon.png'%}" style="width: 180px; height: 70px;"> 
           </a>
         <div>
           <a href="{% url 'login' %}" class="btn btn-primary" role="button">LogIn</a>
@@ -45,20 +45,20 @@
         <ul class="navbar-nav">
           <!-- Nav bar with section link -->
           <li class="nav-item">
-            <a href="#index_about_us" class="btn btn-primary" role="button"><h7 class="navtitle">About Us</h7></a>
+            <a href="#index_about_us" class="btn btn-primary" role="button"><h6 class="navtitle">About Us</h6></a>
             <!-- Section link -->
           </li>
           <li class="nav-item">
-            <a href="#index_review" class="btn btn-primary" role="button"><h7 class="navtitle">Review</h7></a>
+            <a href="#index_review" class="btn btn-primary" role="button"><h6 class="navtitle">Review</h6></a>
           </li>
           <li class="nav-item">
-            <a href="#index_blog" class="btn btn-primary" role="button"><h7 class="navtitle">Blog</h7></a>
+            <a href="#index_blog" class="btn btn-primary" role="button"><h6 class="navtitle">Blog</h6></a>
           </li>
           <li class="nav-item">
-            <a href="#index_recommendations" class="btn btn-primary" role="button"><h7 class="navtitle">Recommendations</h7></a>
+            <a href="#index_recommendations" class="btn btn-primary" role="button"><h6 class="navtitle">Recommendations</h6></a>
           </li>        
           <li class="nav-item">
-            <a href="#Join_us" class="btn btn-primary" role="button"><h7 class="navtitle">Join Us</h7></a>
+            <a href="#Join_us" class="btn btn-primary" role="button"><h6 class="navtitle">Join Us </h6></a>
           </li>
         </ul>
         <!-- Section link -->
@@ -86,7 +86,7 @@
               </li>
               <li class="nav-item">
                 <!-- This link needs to redirect to the login. -->
-                <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h7 class="navtitle">Know more</h7></a>
+                <a href="{% url 'login' %}" class="btn btn-primary" role="button"><h6 class="navtitle">Know more</h6></a>
               </li>
             </tr>
           </table>
@@ -129,15 +129,30 @@
           <div class="card bg-light text-dark">
             <div class="card-body">
               {% if random_post %}
-              <h2>{{ random_post.blog_title }}</h2>
-              <p>{{ random_post.blog_body }}</p>
-              <!-- Display other attributes of the random post as needed -->
+              <table aria-colspan="2" style="width: 100%;">
+                <tr>
+                    <th><h2>{{ random_post.blog_title }}</h2></th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>{{ random_post.blog_body }}</p>
+                        <br>
+                        <h6>Posted by: {{ random_post.user_id.username }}</h6>
+                    </td>
+                    <td style="text-align: right;">
+                        <div class="container" style="padding-left: 20px;">
+                            <img src="{{ random_post.blog_images.url }}" alt="Blog Image" style="height: 350px; width: 550px; object-fit: contain; margin-top: 10px;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+              
               {% else %}
                 <p>No blog posts available.</p>
               {% endif %}
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <a href="{% url 'login' %}" class="btn btn-primary" role="button">
-                  <h7 class="navtitle">Know more</h7>
+                  <h6 class="navtitle">Know more</h6>
                 </a>
               </div>
               <!-- This link needs to redirect to the login. -->
