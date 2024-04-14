@@ -22,6 +22,7 @@ import blogs.views
 from django.conf import settings
 from django.conf.urls.static import static
 import message.views
+import appointment.views
 from chatbox.views import chatbox
 
 
@@ -31,7 +32,10 @@ urlpatterns = [
     path('signup/',views.signup,name="signup"),
     path('dashboard/',dashboard.views.dashboard,name="dashboard"),
     path('post_dashboard/',dashboard.views.post_dashboard,name='post_dashboard'),
+    path('register_view/<str:pk>/',dashboard.views.register_view,name='register_view'),
+     path('request_appointment/',appointment.views.request_appointment,name='request_appointment'),
     path('user_doctor/',dashboard.views.user_doctor, name='user_doctor'),
+    path('profile/',views.profile,name="profile"),
     path('about/',views.about_page, name='about'),
     path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),

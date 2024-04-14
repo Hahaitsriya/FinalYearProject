@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'dashboard',
     'bootstrap5',
     'settings',
-    'message',   
+    'message', 
+    'appointment',  
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'riyashakya1920@gmail.com' 
-EMAIL_HOST_PASSWORD = 'Levo_aau_fuC;101AR#'  # Your Gmail app password
+EMAIL_HOST_PASSWORD = 'jgpk lkqm egti wyth'  # Your Gmail app password
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+<body>
+{% block content %}
+     <div class="container mt-5">
+        <!-- Profile Header -->
+        <div class="row">
+            <div class="col-md-4">
+                <img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-thumbnail">
+            </div>
+            <div class="col-md-8">
+                <p><strong>Username:</strong>{{ username }}</p>
+                <p><strong>Status:</strong>{{ status }}</p>
+                <p><strong>Email:</strong>{{ email }}</p>
+                <p><strong>Phone:</strong> {{ contact }}</p>
+                <br>
+                {% if status == "doctor" %}
+                <div class="col p-3 bg-light text-black">
+                    <a href="{%url 'request_appointment'%}" type="button" class="btn btn-primary"> Set Appointment </a>
+                    <a href="" type="button" class="btn btn-primary"> Send Message </a>
+                </div> 
+                {% endif %}  
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

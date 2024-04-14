@@ -3,8 +3,8 @@ from dashboard.models import offerPost
 from authentication.models import userProfile
 from authentication.views import *
 from datetime import date
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.core.mail import send_mail
 
 def base_home(request):
@@ -38,7 +38,9 @@ def dashboard(request):
         return render(request,'login.html')
     else:
         user_profile = userProfile.objects.get(user_id=user_id)
-        offer_detail=offerPost.objects.all()
+        today_date = timezone.now()
+        offer_detail = offerPost.objects.filter(expiry_date__gte=today_date)
+    
     return render(request,'dashboard/dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})
 
 @login_required
@@ -49,22 +51,19 @@ def user_doctor(request):
     return render(request, 'user_doctor.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'profiles': profiles})
     
 @login_required
-def register_view(request):
+def register_view(request, pk):
     if request.method == 'POST':
-        username=request.POST.get('username')
+        username = request.POST.get('username')
         email=request.POST.get('user_email')
-        user_contact=request.POST.get('user_contact')
-        
-        print(f"Username: {username}, Email: {email}, Contact: {user_contact}")
+        user_contact=request.POST.get('contact')
         
         # Send email to user
         user_subject = 'Registration Confirmation'
-        user_message = f'Hi {username},\n\nThank you for registering with us!\n\nYour account has been successfully created.'
+        user_message = f'Hi {username},\n\nThank you for registering with us!\n\nYour participation in this event has been successfully registered.'
         send_mail(user_subject, user_message, email, [email])
 
-         # Fetch admin email from offer detail
-        offer_id = request.POST.get('offer_id')  # Assuming you have a field to identify the offer
-        offer =  offerPost.objects.get(id=offer_id)
+        # Fetch admin email from offer detail
+        offer =  offerPost.objects.get(offer_id=pk)
         admin_email = offer.user_id.user_email  
         
           # Send email to admin
@@ -74,6 +73,7 @@ def register_view(request):
 
               # Assuming registration is successful, send a success message
         message = 'Registration successful'
-        return JsonResponse({'message':message},status=200)
-    else:
-        return JsonResponse({'error': "Invalid request method"}, status=400)
+        return redirect('dashboard')
+    
+    
+    

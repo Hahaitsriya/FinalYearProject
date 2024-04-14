@@ -92,6 +92,24 @@
         return true; 
       } 
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const statusDropdown = document.getElementById('status');
+      const specializedField = document.getElementById('specialized-field');
+
+      statusDropdown.addEventListener('change', function() {
+          if (statusDropdown.value === 'doctor') {
+              specializedField.style.display = 'block';
+          } else {
+              specializedField.style.display = 'none';
+          }
+      });
+
+      // Trigger change event initially if status is pre-selected
+      if (statusDropdown.value === 'doctor') {
+          specializedField.style.display = 'block';
+      }
+  });
   </script>
   <div>
     <center>
@@ -152,12 +170,17 @@
           <br>
           <!-- Dropdown button to seperate the role of the users. -->
           <tr>
-            <label> Status: </label>
-            <select name="status" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" role="button" required>
+            <label for="status"> Status: </label>
+            <select name="status" id="status" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" role="button" required>
               <option value="user" class="dropdown-item">User</option>
               <option value="doctor" class="dropdown-item">Doctor</option>
               <option value="hospital" class="dropdown-item">Hospital</option>
             </select>
+
+            <tr id="specialized-field" style="display: none;">
+              <label for="specialized">Specialized:</label>
+              <input type="text" name="specification_doctor" placeholder="Cardiology" required>
+            </tr>
           </tr>
           <br>
           <br>

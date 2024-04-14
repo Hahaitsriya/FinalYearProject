@@ -71,6 +71,8 @@ def signup(request):
         address=request.POST.get('home_Address')
         image=request.POST.get('image_upload')
         status=request.POST.get('status')
+        if status == 'doctor':
+            specification_doctor = request.POST.get('specification_doctor')
 
         # Loading the feilds from authentication.models(userProfile) into the variable user. 
         user=userProfile()
@@ -83,10 +85,21 @@ def signup(request):
         user.user_address=address
         user.user_profile=image
         user.user_status =status
-        print(status)
+        user.user_speciality=specification_doctor
         #Saves the data.
         user.save()
     return render(request,'signup.html')
+
+def profile(request):
+    user_id = request.session.get('user_id')
+    if user_id is None:
+        return render(request,'dashboard.html')
+    else:
+        user_profile = userProfile.objects.get(user_id=user_id)
+        # printing the user status
+        print(userProfile.username)
+        return render(request,'profile.html',{'username':user_profile.username,'status':user_profile.user_status,'email':user_profile.user_email,'contact':user_profile.user_contact})
+
 
 # send email with verification link
 def verify_email(request):
@@ -123,5 +136,4 @@ def about_page(request):
         user_profile = userProfile.objects.get(user_id=user_id)
         offer_detail=offerPost.objects.all()
         print(offer_detail)
-        # print(titles)
     return render(request,'about.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})

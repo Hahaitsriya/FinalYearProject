@@ -11,38 +11,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dashboard</title>
     </head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#registerButton').click(function() {
-            // Perform AJAX request to Django view
-            var username = $('#username').val();
-            var email = $('#user_email').val();
-            var contact =$('#user_contact').val();
-
-            $.ajax({
-                type: 'POST',
-                url: '/register/',  // URL to your Django view
-                data: {
-                    username: username,
-                    user_email: user_email,
-                    user_contact: user_contact ,
-                },
-                success: function(response) {
-                    // Handle successful response
-                    alert('Registration successful');
-                    // You can redirect, show a message, or perform any other action
-                },
-                error: function(xhr, errmsg, err) {
-                    // Handle error
-                    console.log(xhr.status + ": " + xhr.responseText); // log to console
-                    // You can show an error message to the user or handle the error in other ways
-                }
-            });
-        });
-    });
-</script>
-
     {% endblock %}
     {% block content %}
     <body style="font-family: Times New Roman">
@@ -77,7 +45,7 @@
                                 <br>  
                         </td> -->
                         </table>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-left: 1100px;" id="button">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{ ids.offer_id }}" style="margin-left: 1100px;" id="button">
                             See more >
                         </button>
                     </div>
@@ -85,24 +53,38 @@
                 <br>
                 <br>
                 <!-- The Modal -->
-                <div class="modal" id="myModal">
+                <div class="modal" id="myModal{{ ids.offer_id }}">
                     <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                 
                         <!-- Modal Header -->
                         <div class="modal-header">
                         <h4 class="modal-title">Register on {{  ids.offer_title }}</h4>
-                        </div>
+                    </div>
                 
                         <!-- Modal body -->
                         <div class="modal-body">
                             {{ ids.offer_explaination }}
-                        </div>
-                
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#myModal" id="registerButton" data-bs-dismiss="modal">Register</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <br>
+                            <form method="POST" action="{% url 'register_view' ids.offer_id %}">
+                                {% csrf_token %}            
+                                <table>
+                                    <tr> <h2 style="text-align: center;"> Fill up form to register !!! </h2></tr>
+                                    <tr>
+                                        <label> Username: </label>
+                                        <input type="text" class="form-control" name="username" placeholder=" John Doe" required> 
+                                        <br>
+                                        <label> Email : </label>
+                                        <input type="text" class="form-control" name="user_email" placeholder=" example123@gmail.com" required> 
+                                        <br>
+                                        <label> Contact: </label>
+                                        <input type="text" class="form-control" name="contact" placeholder=" 9741671108" required> 
+                                        <br>
+                                    </tr>
+                                </table>
+                                <input type="submit" value="Register" class="btn btn-primary">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </form>    
                         </div>
                     </div>
                     </div>

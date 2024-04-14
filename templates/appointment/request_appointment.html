@@ -1,0 +1,47 @@
+!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+{% block title %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dashboard</title>
+    </head>
+    {% endblock %}
+    {% block content %}
+    <body style="font-family: Times New Roman">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Request an Appointment</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{% url 'request_appointment' %}" method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="doctor_id" class="form-label">Doctor:</label>
+                                    <input type="number" class="form-control" id="doctor_id" name="doctor_id" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="appointment_time" class="form-label">Appointment Time:</label>
+                                    <input type="datetime-local" class="form-control" id="appointment_time" name="appointment_time" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Request Appointment</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Include Bootstrap JS and its dependencies -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from transformers import pipeline
 from django.db.models import Q
-from authentication.models import userProfile
+from authentication.models import userProfile,hospital
 
 label2id = {
 'emotional pain':0,
@@ -33,17 +33,18 @@ label2id = {
 
 
 hospital_maping = {
-    1:'Pschyology',
-    2:'Trichology',
-    3:'Cardiology',
-    4:'Physiology',
-    5:'Dermatology',
-    6:'Gastrology',
-    7:'Orthopedology',
-    8:'Epidemiology',
-    9:'Neurology',
-    10:'Hematology',
-    11 :'ENT',
+    0:'Pschyology',
+    1:'Trichology',
+    2:'Cardiology',
+    3:'Physiology',
+    4:'Podiatry',
+    5:'Orthopedology',
+    6:'Physiciology',
+    7:'Dermatology',
+    8:'Gastrology',
+    9:'Hematology',
+    10 :'Rheumatology',
+    11:'Pulmonology',
     12 :'Neurology',
     13 :'Nutritionists',
     14 :'PCP',
@@ -80,12 +81,14 @@ def hospital_type(query):
 def chatbox(request):
     user_id = request.session.get('user_id')
     user_profile = userProfile.objects.get(user_id=user_id)
+    hospital = hospital.objects.get(user_id=id)
+
     
     if request.method == 'POST':
         q = request.POST.get('q')
         # Process the user input (q) and generate a response
         response = process_user_input(q)
-        # print(response)
+        print(response)
         return render(request, 'chatbot.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'response': response})
     else:
         # Handle non-POST requests (e.g., GET requests)
@@ -97,9 +100,8 @@ def process_user_input(q):
     
     query = hospital_type(q)
     print(query)
-   
-    profile = userProfile.objects.filter(
-        Q(user_speciality__exact=query)
+    profile = hospital.objects.filter(
+        Q(hospital_specialists__exact=query)
     )
     return profile
     
