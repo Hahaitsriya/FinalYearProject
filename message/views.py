@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
-from .models import userProfile,message
+from .models import userProfile
+from message.models import message
 
 # Create your views here.
 def inbox(request, user_id):

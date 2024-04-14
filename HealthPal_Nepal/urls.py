@@ -35,7 +35,7 @@ urlpatterns = [
     path('register_view/<str:pk>/',dashboard.views.register_view,name='register_view'),
      path('request_appointment/',appointment.views.request_appointment,name='request_appointment'),
     path('user_doctor/',dashboard.views.user_doctor, name='user_doctor'),
-    path('profile/',views.profile,name="profile"),
+    path('profile/<int:user_id>/',views.profile,name="profile"),
     path('about/',views.about_page, name='about'),
     path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from authentication.models import userProfile
 from dashboard.models import offerPost
 from django.http import HttpResponse ,HttpRequest
@@ -13,7 +13,6 @@ from django.core.mail import EmailMessage
 from django.contrib import messages
 from blogs.models import blogs
 import random
-
 
 
 # Create your views here.
@@ -90,16 +89,20 @@ def signup(request):
         user.save()
     return render(request,'signup.html')
 
-def profile(request):
-    user_id = request.session.get('user_id')
-    if user_id is None:
-        return render(request,'dashboard.html')
-    else:
-        user_profile = userProfile.objects.get(user_id=user_id)
-        # printing the user status
-        print(userProfile.username)
-        return render(request,'profile.html',{'username':user_profile.username,'status':user_profile.user_status,'email':user_profile.user_email,'contact':user_profile.user_contact})
-
+def profile(request, user_id):
+    # Fetch the userProfile object based on the provided user ID
+    user_profile = get_object_or_404(userProfile, user_id=user_id)
+    
+    # No need to check session user_id here, as user_id is provided as a parameter
+    
+    # Printing the user status (you need to use user_profile.username, not userProfile.username)
+    print(user_profile.username)
+    
+    return render(request, 'profile.html', {'username': user_profile.username, 
+                                            'status': user_profile.user_status, 
+                                            'email': user_profile.user_email, 
+                                            'contact': user_profile.user_contact, 
+                                            'user_profile': user_profile})
 
 # send email with verification link
 def verify_email(request):
