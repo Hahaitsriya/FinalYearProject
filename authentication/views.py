@@ -68,7 +68,7 @@ def signup(request):
         contact=request.POST.get('contact')
         email=request.POST.get('email_Address')
         address=request.POST.get('home_Address')
-        image=request.POST.get('image_upload')
+        image=request.FILES.get('image_upload')
         status=request.POST.get('status')
         if status == 'doctor':
             specification_doctor = request.POST.get('specification_doctor')
@@ -89,20 +89,6 @@ def signup(request):
         user.save()
     return render(request,'signup.html')
 
-def profile(request, user_id):
-    # Fetch the userProfile object based on the provided user ID
-    user_profile = get_object_or_404(userProfile, user_id=user_id)
-    
-    # No need to check session user_id here, as user_id is provided as a parameter
-    
-    # Printing the user status (you need to use user_profile.username, not userProfile.username)
-    print(user_profile.username)
-    
-    return render(request, 'profile.html', {'username': user_profile.username, 
-                                            'status': user_profile.user_status, 
-                                            'email': user_profile.user_email, 
-                                            'contact': user_profile.user_contact, 
-                                            'user_profile': user_profile})
 
 # send email with verification link
 def verify_email(request):

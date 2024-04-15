@@ -40,10 +40,13 @@
                         <br>
                         <h4> Posted by: {{ids.user_id.username}}</h4>
                         </td>
-                        <!-- <td>
-                            <img src="{ }" alt="Offer Image" style="height: 350px; width: 550px; object-fit: contain;">
-                                <br>  
-                        </td> -->
+                        <td>
+                            {% if ids.offer_picture %}
+                            <img src="{{ ids.offer_picture.url }}" alt="Offer Image" style="height: 350px; width: 550px; object-fit: contain;">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                        </td>
                         </table>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{ ids.offer_id }}" style="margin-left: 1100px;" id="button">
                             See more >

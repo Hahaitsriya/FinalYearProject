@@ -4,9 +4,12 @@ from message.models import message
 
 # Create your views here.
 def inbox(request, user_id):
+    user_id = request.session.get('user_id')
+    user_profile = userProfile.objects.get(user_id=user_id)
+    
     user = userProfile.objects.get(pk=user_id)
     messages = user.received_messages.all()
-    return render(request, 'chat/inbox.html', {'user_id':user_id,'messages': messages})
+    return render(request, 'chat/inbox.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status, 'messages': messages})
 
 def send_message(request, sender_id, recipient_id):
     if request.method == 'POST':

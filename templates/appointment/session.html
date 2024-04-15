@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+</head>
+<body>
+    <h1>Doctor's Appointment List</h1>
+    
+    {% if doctor_appointments %}
+        <ul>
+            {% for appointment in doctor_appointments %}
+                <li>
+                    <strong>Appointment Name:</strong> {{ appointment.appointment_name }}<br>
+                    <strong>Email:</strong> {{ appointment.appointment_email }}<br>
+                    <strong>Appointment Time:</strong> {{ appointment.appointment_time }}<br>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Accept</button>
+                    </form>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Decline</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+    </body>
+    </html>
+{% endblock %}

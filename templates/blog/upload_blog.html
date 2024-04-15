@@ -19,8 +19,8 @@
             <div class="card" style="background-color: #cbdcf7">
                 <br>
                 <h3 style="text-align: center;"> Upload Blog.</h3>
-                <div class="card-body">
-                    <form method="POST">
+                <div class="card-body"> 
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <table>
                             <tr>

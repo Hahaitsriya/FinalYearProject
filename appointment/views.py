@@ -7,43 +7,61 @@ from authentication.models import userProfile
 from django.utils import timezone
 
 # Create your views here.
-def request_appointment(request):
+def user_doctor_profile(request, user_id): 
+    for_nav = request.session.get('user_id') 
+    profiles = userProfile.objects.get(user_id=for_nav)
+    
+    #for getting the profile based data.
+    user_profile = get_object_or_404(userProfile, user_id=user_id)
+    appointment_details = None
+    
     if request.method == 'POST':
-        # Assuming the form data includes 'doctor_id' and 'appointment_time'
-        doctor_id = request.POST.get('doctor_id')
+        appointment_name=request.POST.get('appointment_name')
+        appointment_email=request.POST.get('appointment_email')
         appointment_time = request.POST.get('appointment_time')
         
-        # Convert the appointment_time from string to datetime object
         # Note: You'll need to adjust the format based on how the date is being sent from the frontend
         appointment_time = timezone.datetime.strptime(appointment_time, '%Y-%m-%dT%H:%M')
-
         
-        # Ensure the user is logged in
-        if not request.user.is_authenticated:
-            messages.error(request, "You must be logged in to request an appointment.")
-            return redirect('login')
-        
-        # Ensure the selected doctor exists
-        try:
-            doctor = userProfile.objects.get(user_id=doctor_id, user_status='doctor')
-        except userProfile.DoesNotExist:
-            messages.error(request, "The selected doctor does not exist.")
-            return render(request,'appointment/select_doctor.html')
-        
-        # Create the appointment
-        appointment = Appointment(
-            user=request.user.userprofile,  
-            # Assuming you have a way to get the UserProfile from the request.user
-            doctor=doctor,
+        appointment_details = Appointment.objects.create(
+            appointment_name=appointment_name,
+            appointment_email=appointment_email,
             appointment_time=appointment_time,
-            status='requested'
+            user=userProfile.objects.get(user_id=for_nav),  # Assigning the userProfile instance
+            doctor=user_profile  # Assigning the userProfile instance fetched earlier
         )
-        appointment.save()
-        
-        messages.success(request, "Your appointment request has been submitted.")
-        return redirect('appointment_success')  # Redirect to a new page to show success message
-    else:
-        # If not a POST request, show the appointment request form
-        # Assuming you have a form or a way to select a doctor and specify an appointment time
-        return render(request, 'appointment/request_appointment.html')
+        print(appointment_details)
+        # Store appointment details in session
+        request.session['appointment_details'] = {
+            'appointment_name': appointment_name,
+            'appointment_email': appointment_email,
+            'appointment_time': appointment_time.strftime('%Y-%m-%d %H:%M'),  # Convert to string for session
+            
+        }
+       
+   
+    return render(request, 'profile.html',  {'username':user_profile.username,'email': user_profile.user_email,'contact': user_profile.user_contact,
+                                            'status':profiles.user_status,'newStatus': user_profile.user_status,'user_profile': user_profile,
+                                            'appointment_details': appointment_details})
+    
+    
+def session(request):
+    for_nav = request.session.get('user_id')
+    profiles = userProfile.objects.get(user_id=for_nav)
+    doctor_email=profiles.user_email
+    
+    # Retrieve appointment details from session
+    appointment_details = request.session.get('appointment_details')
+    
+    if appointment_details:
+        # Retrieve doctor's email from appointment details
+       appointment_email = appointment_details.get('doctor_email')   
+       if doctor_email:
+        # Filter appointments for the specific doctor
+        doctor_appointments = Appointment.objects.filter(doctor__user_email=doctor_email)
+        return render(request, 'appointment/session.html', {'username':profiles.username,'email': profiles.user_email,'contact': profiles.user_contact,'status':profiles.user_status,'doctor_appointments': doctor_appointments})
+    
+    # Redirect to dashboard or appropriate page if appointment details are not found
+    return redirect('dashboard')  
+
 

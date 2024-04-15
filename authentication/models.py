@@ -20,6 +20,6 @@ class hospital(models.Model):
     hospital_specialists = models.CharField(max_length=500,verbose_name="Hospital Speciality: ",null=False,blank=True)
     hospital_user = models.ManyToManyField(userProfile, related_name="user_hospital_details")
     def __str__(self):
-        return self.username
+        return self.hospital_name
 
     

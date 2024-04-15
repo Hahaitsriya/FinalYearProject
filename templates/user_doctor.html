@@ -44,7 +44,7 @@
                             <br>
                             <span>{{ profile.user_address }}</span>
                         </p>
-                        <a href="{% url 'profile' user_id=profile.user_id %}" class="btn btn-primary">See Profile</a>
+                        <a href="{% url 'user_doctor_profile' user_id=profile.user_id %}" class="btn btn-primary">See Profile</a>
                         <!-- <a href="{% url 'send_message' sender_id=profile.user_id recipient_id=request.user.id %}"  class="btn btn-primary"> Set Appointment </a> -->
                     </div>
                 </div>

@@ -24,10 +24,10 @@ def post_dashboard(request):
             explaination=request.POST.get('explaination')
             location=request.POST.get('location')
             due_date=request.POST.get('expiry_date')
-            offer_image=request.POST.get('offer_picture')
+            offer_picture=request.FILES.get('offer_picture')
         
             # Create an instance of OfferPost and assign the user_profile to user_id field
-            offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,offer_explaination=explaination,offer_location=location,today_date=date.today(),expiry_date=due_date, offer_picture=offer_image)
+            offer_details = offerPost(user_id=user_profile, offer_title=title, offer_body=body,offer_explaination=explaination,offer_location=location,today_date=date.today(),expiry_date=due_date, offer_picture= offer_picture)
             offer_details.save()
     return render(request,'dashboard/upload_dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'today_date':date.today()})
 
