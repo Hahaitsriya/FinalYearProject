@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'dashboard',
     'bootstrap5',
     'settings',
-    'message', 
     'appointment',  
 ]
 

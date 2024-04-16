@@ -21,7 +21,6 @@ import dashboard.views
 import blogs.views
 from django.conf import settings
 from django.conf.urls.static import static
-import message.views
 import appointment.views
 from chatbox.views import chatbox
 
@@ -44,8 +43,6 @@ urlpatterns = [
     path('upload_blog/',blogs.views.blog_upload,name='upload_blog'),
     path('blog/',blogs.views.blog,name='blog'),
     path('chatbox/',chatbox,name='chatbox'),
-    path('inbox/<int:user_id>/', message.views.inbox, name='inbox'),
-    path('send_message/<int:sender_id>/<int:recipient_id>/', message.views.send_message, name='send_message'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 

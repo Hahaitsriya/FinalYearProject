@@ -28,7 +28,8 @@
 {% block content %}
 <body style="font-family: Times New Roman">
     <div class="container-fluid">
-        <h2>Doctors For You:</h2>
+        <br>
+        <h2 style="padding-left: 80px;">Doctors For You:</h2>
         <br>
         <div class="row" style=" margin-left:150px; width: 1000px; padding:5px;">
             {% for profile in profiles %}
@@ -39,6 +40,7 @@
                         {% if profile.user_profile %}
                         <img src="{{ profile.user_profile.url }}" alt="Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%; justify-content: center;" class="card-img-top">
                         {% else %}
+                            {% load static %}
                             <!-- Default profile picture -->
                             <img src="{% static 'profile.jpg' %}" alt="Default Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%; justify-content: center;" class="card-img-top">
                         {% endif  %}
@@ -53,7 +55,6 @@
                             <span>{{ profile.user_address }}</span>
                         </p>
                         <a href="{% url 'user_doctor_profile' user_id=profile.user_id %}" class="btn btn-primary">See Profile</a>
-                        <!-- <a href="{% url 'send_message' sender_id=profile.user_id recipient_id=request.user.id %}"  class="btn btn-primary"> Set Appointment </a> -->
                     </div>
                 </div>
             </div>
