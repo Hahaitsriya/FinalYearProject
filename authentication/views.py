@@ -48,7 +48,7 @@ def login(request):
             # Fetching all the data into the sessions.
             request.session['user_id'] = user_Profile.user_id
             request.session['status'] = user_Profile.user_status
-            user_status = user_Profile.user_status
+            # user_status = user_Profile.user_status
 
             #Saving into the session.
             request.session.save()
@@ -58,7 +58,7 @@ def login(request):
         else:
             #else show an error.
             error = "Username or password is incorrect."
-    return render(request, 'login.html', {'error': error}) 
+    return render(request, 'login.html', {'error': error,'user_profile':user_profile}) 
 
 def signup(request):
     #Fetch data from html and css form. 
@@ -126,3 +126,17 @@ def about_page(request):
         offer_detail=offerPost.objects.all()
         print(offer_detail)
     return render(request,'about.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})
+
+def user_profile(request):
+    user_id = request.session.get('user_id')
+    if user_id is None:
+        return render(request,'dashboard.html')
+    else:
+        for_profile = userProfile.objects.get(user_id=user_id)
+    return render(request,'user_profile.html',{'username':for_profile.username,'status':for_profile.user_status,'email':for_profile.user_email,'contact':for_profile.user_contact})
+
+def logout(request):
+    request.session.pop('user_id', None)
+    return redirect('index')
+    
+    

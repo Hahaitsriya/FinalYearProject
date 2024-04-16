@@ -6,14 +6,30 @@ from datetime import date
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from urllib.parse import urljoin
+from django.conf import settings
 
 def base_home(request):
     # Retrieve user status from session
     user_status = request.session.get('user_status')
-    context = {
-        'user_status': user_status,
-    }
-    return render(request, 'base.html', context)
+    
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
+    
+    print("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    
+    print("----------------->>>>>", for_profile.user_profile)
+
+    return render(request, 'base.html', 
+                  {
+                      'user_status': user_status,
+                      'username':for_profile.username,
+                      'status':for_profile.user_status,
+                      'email':for_profile.user_email,
+                      'contact':for_profile.user_contact, 
+                      'profile_pp':for_profile.user_profile,
+                    }
+                )
 
 def post_dashboard(request):
     user_id = request.session.get('user_id')
@@ -33,6 +49,10 @@ def post_dashboard(request):
 
 @login_required
 def dashboard(request):
+    user_status = request.session.get('user_status')
+    
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
     user_id = request.session.get('user_id')
     if user_id is None:
         return render(request,'login.html')
@@ -41,7 +61,19 @@ def dashboard(request):
         today_date = timezone.now()
         offer_detail = offerPost.objects.filter(expiry_date__gte=today_date)
     
-    return render(request,'dashboard/dashboard.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})
+    return render(request,'dashboard/dashboard.html',
+                  {
+                      'username':user_profile.username,
+                      'user_id':user_id,
+                      'status':user_profile.user_status,
+                      'offer_detail':offer_detail,
+                      'user_status': user_status,
+                      'username':for_profile.username,
+                      'status':for_profile.user_status,
+                      'email':for_profile.user_email,
+                      'contact':for_profile.user_contact, 
+                      'profile_pp':for_profile.user_profile,
+                      })
 
 @login_required
 def user_doctor(request):

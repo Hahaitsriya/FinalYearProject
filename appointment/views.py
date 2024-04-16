@@ -41,7 +41,7 @@ def user_doctor_profile(request, user_id):
        
    
     return render(request, 'profile.html',  {'username':user_profile.username,'email': user_profile.user_email,'contact': user_profile.user_contact,
-                                            'status':profiles.user_status,'newStatus': user_profile.user_status,'user_profile': user_profile,
+                                            'status':profiles.user_status,'newStatus': user_profile.user_status,'user_profile': user_profile,'speciality':user_profile.user_speciality,
                                             'appointment_details': appointment_details})
     
     

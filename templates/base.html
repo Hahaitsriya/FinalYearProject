@@ -21,36 +21,41 @@
 </head>
 <header style="font-family: Times New Roman">
     <!-- Light background navigation bar with a static file image and two primary buttons. -->
-    <nav class="navbar bg-light">
+    <nav class="navbar bg-light" style="position: relative; z-index: 999;">
         <!-- Container with 100% width  -->
         <div class="container-fluid">
             <a class="navbar-brand" href="{%url 'dashboard'%}">
                 <img src="{% static 'logo_icon.png'%}" style="width: 190px; height: 80px;"> 
             </a>
-            <div style="padding-left: 45px;">
-                <div class="dropdown">
-                    <button  class='dropdown-toggle' data-bs-toggle="dropdown">
-                        <img src="{% static 'logo_icon.png'%}" alt="dropdown image" class="img-responsive" width="150px" height="50px">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{}">Profile</a></li>
-                        <li><a class="dropdown-item" href="#"> Log Out</a></li>
-                    </ul>
-                    <button type="button" class='dropdown-toggle' data-bs-toggle="dropdown">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="16" fill="currentColor" class="bi bi-question-octagon" viewBox="0 0 16 16">
-                            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
-                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Via Doc</a></li>
-                        <li><a class="dropdown-item" href="#">Via Video</a></li>
-                    </ul>
-                </div>
+            <div class="dropdown" style="position: absolute; right: 120px;">
+                <button class="dropdown-toggle" data-bs-toggle="dropdown" style="border: none; background: none; box-shadow: none;">
+                    {% if profile_pp %}
+                    <img src="{{ profile_pp.url }}" alt="Profile Picture" class="img-responsive" width="50px" height="50px">
+                    {% else %}
+                    <!-- Default profile picture -->
+                    <img src="{% static 'profile.jpg'%}" alt="Default Profile Picture" class="img-thumbnail" width="50px" height="50px">
+                    {% endif %}
+                </button>
+                <ul class="dropdown-menu" style="border: none;">
+                    <li><a class="dropdown-item" href="{%url 'user_profile'%}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="padding-left: 45px;">
+                <button type="button" class='dropdown-toggle' data-bs-toggle="dropdown" style="background: none; border: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="16" fill="currentColor" class="bi bi-question-octagon" viewBox="0 0 16 16">
+                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
+                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+                    </svg>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Via Doc</a></li>
+                    <li><a class="dropdown-item" href="#">Via Video</a></li>
+                </ul>
             </div>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <!-- Nav bar with section link -->
@@ -87,7 +92,7 @@
                         <a href="{%url 'post_dashboard'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Post Offer</h5></a>
                     </li> 
                     <li class="nav-item">
-                        <a href="" class="btn btn-primary" role="button"><h5 class="navtitle">Profile</h5></a>
+                        <a href="{%url 'user_profile'%}" class="btn btn-primary" role="button"><h5 class="navtitle">Profile</h5></a>
                     </li>    
                 {% endif %}      
                 <li class="nav-item">

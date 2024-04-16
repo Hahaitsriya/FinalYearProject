@@ -18,7 +18,7 @@
             gap: 20px;
             padding: 20px;
             justify-items: center; /* Center items horizontally */
-                 align-items: center; /* Vertical alignment */
+            align-items: center; /* Vertical alignment */
         }
         .card {
             width: 300px; /* Set the width of each card */
@@ -30,12 +30,20 @@
     <div class="container-fluid">
         <h2>Doctors For You:</h2>
         <br>
-        <div class="row" style=" margin-left:150px; width: 1000px;">
+        <div class="row" style=" margin-left:150px; width: 1000px; padding:5px;">
             {% for profile in profiles %}
             <div class="col-sm">
                 <div class="card">
-                    <img class="card-img-top" src="" alt="Card image" style="width:100%">
-                    <div class="card-body">
+                    <br>     
+                    <div class="col-md-4" style="width: 250px; height: 200px; object-fit: hidden; padding-left: 50px;">
+                        {% if profile.user_profile %}
+                        <img src="{{ profile.user_profile.url }}" alt="Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%; justify-content: center;" class="card-img-top">
+                        {% else %}
+                            <!-- Default profile picture -->
+                            <img src="{% static 'profile.jpg' %}" alt="Default Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%; justify-content: center;" class="card-img-top">
+                        {% endif  %}
+                    </div>
+                    <div class="card-body" style="text-align: center;">
                         <h4 class="card-title">{{ profile.username }}</h4>
                         <p class="card-text">
                             <a href="mailto:{{profile.user_email}}">{{ profile.user_email }}</a>
@@ -51,6 +59,7 @@
             </div>
             {% endfor %}
         </div>
+        <br>
     </div>  
 </body>
 {% endblock %}

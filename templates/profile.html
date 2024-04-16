@@ -1,56 +1,48 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
-<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Doctor Profile</title>
-<body>
 {% block content %}
-    <div class="container-fluid">
-        <br>
-        <h2 style="text-align:center"> Set an Appointment </h2>
-        <table aria-colspan="2">
-            <tr>
-                <td style="padding-left:120px ;">
-                    <div class="col-md-8">
-                        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-thumbnail">
-                    </div>
-                    <div>
-                       <br>
-                       <p><strong>Username:</strong>{{ username }}</p>
-                       <p><strong>Status:</strong>{{ newStatus }}</p>
-                       <p><strong>Email:</strong>{{ email }}</p>
-                       <p><strong>Phone:</strong> {{ contact }}</p>
-                       <br> 
-                    </div>
-                    <a href="" type="button" class="btn btn-primary"> Send Message </a>
+<div class="container-fluid">
+    <br>
+    <h2 style="text-align:center"> Set an Appointment </h2>
+    <table aria-colspan="2">
+        <tr>
+            <td style="padding-left:120px;">
+                <div class="col-md-4" style="width: 250px; height: 250px; object-fit: hidden;">
+                    {% if user_profile.user_profile %}
+                        <img src="{{ user_profile.user_profile.url }}" alt="Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%">
+                    {% else %}
+                        <!-- Default profile picture -->
+                        <img src="{% static 'profile.jpg' %}" alt="Default Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%">
+                    {% endif  %}
+                </div>
+                <div style="text-align:center;">
+                    <br>
+                    <p><strong>Username:</strong>{{ username }}</p>
+                    <p><strong>Specialized In:</strong> {{ speciality }}</p>
+                    <p><strong>Email:</strong>{{ email }}</p>
+                    <p><strong>Phone:</strong> {{ contact }}</p>
+                    <br> 
+                </div>
+                <a href="" type="button" class="btn btn-primary" style="margin-left:50px ;"> Send Message </a>
+                <br>
+                <br>
+            </td>
+            <td style="padding-left:250px;">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label class="form-label"> Username : </label>
+                    <input type="text" class="form-control" name="appointment_name" placeholder="John Doe" required>
+                    <br>
+                    <label class="form-label">Email :</label> 
+                    <input type="email" class="form-control" name="appointment_email" placeholder="john123@email.com" required>
+                    <br>
+                    <label for="appointment_time" class="form-label">Appointment Time:</label>
+                    <input type="datetime-local" class="form-control" id="appointment_time" name="appointment_time" required>
                     <br>
                     <br>
-                </td>
-                <td style="padding-left:250px ;">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <label class="form-label"> Username : </label>
-                        <input type="text" class="form-control" name="appointment_name" placeholder="John Doe" required>
-                        <br>
-                        <label class="form-label">Email :</label> 
-                        <input type="email" class="form-control" name="appointment_email" placeholder="john123@email.com" required>
-                        <br>
-                        <label for="appointment_time" class="form-label">Appointment Time:</label>
-                        <input type="datetime-local" class="form-control" id="appointment_time" name="appointment_time" required>
-                        <br>
-                        <input type="submit" value="Request Apppointment" class="btn btn-primary">
-                    </form>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-</body>
-</html>
+                    <input type="submit" value="Request Appointment" class="btn btn-primary" style="margin-left:20px ;">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
 {% endblock %}

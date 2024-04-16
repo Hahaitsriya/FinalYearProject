@@ -29,7 +29,9 @@ from chatbox.views import chatbox
 urlpatterns = [
     path('',views.home,name="index"),
     path('login/',views.login,name="login"),
+    path('logout/',views.logout,name='logout'),
     path('signup/',views.signup,name="signup"),
+    path('user_profile/',views.user_profile,name='user_profile'),
     path('dashboard/',dashboard.views.dashboard,name="dashboard"),
     path('post_dashboard/',dashboard.views.post_dashboard,name='post_dashboard'),
     path('register_view/<str:pk>/',dashboard.views.register_view,name='register_view'),
