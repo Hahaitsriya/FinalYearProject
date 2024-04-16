@@ -1,12 +1,45 @@
 from django.shortcuts import render,redirect
 from appointment.models import Appointment
 from django.shortcuts import get_object_or_404, redirect
-from django.contrib import messages
 from .models import Appointment
 from authentication.models import userProfile
 from django.utils import timezone
+from django.db.models import Q
+
 
 # Create your views here.
+def search_results(request):
+    for_nav = request.session.get('user_id') 
+    profiles = userProfile.objects.get(user_id=for_nav)
+    # Retrieve the current user's profile
+    user_id = request.session.get('user_id')
+    current_user_profile = get_object_or_404(userProfile, user_id=user_id)
+    
+    # Get the search query from the request
+    query = request.GET.get('q')
+    
+    # Perform the search if a query is provided
+    if query:
+        # Filter user profiles based on the search query
+        object_list = userProfile.objects.filter(
+            Q(username__icontains=query) |
+            Q(user_email__icontains=query) |
+            Q(user_speciality__icontains=query)
+        )
+    else:
+        object_list = userProfile.objects.none()
+    
+    # Prepare context data to pass to the template
+    context = {
+        'object_list': object_list,
+        'query': query,
+        'current_user_profile': current_user_profile,
+        'status':profiles.user_status,
+    }
+    
+    # Render the search results template with the context data
+    return render(request, 'search.html',context)
+
 def user_doctor_profile(request, user_id): 
     for_nav = request.session.get('user_id') 
     profiles = userProfile.objects.get(user_id=for_nav)
@@ -38,7 +71,7 @@ def user_doctor_profile(request, user_id):
             'appointment_time': appointment_time.strftime('%Y-%m-%d %H:%M'),  # Convert to string for session
             
         }
-       
+        
    
     return render(request, 'profile.html',  {'username':user_profile.username,'email': user_profile.user_email,'contact': user_profile.user_contact,
                                             'status':profiles.user_status,'newStatus': user_profile.user_status,'user_profile': user_profile,'speciality':user_profile.user_speciality,

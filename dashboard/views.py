@@ -16,10 +16,6 @@ def base_home(request):
     user_id = request.session.get('user_id')
     for_profile = userProfile.objects.get(user_id=user_id)
     
-    print("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-    
-    print("----------------->>>>>", for_profile.user_profile)
-
     return render(request, 'base.html', 
                   {
                       'user_status': user_status,

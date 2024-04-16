@@ -43,6 +43,7 @@ urlpatterns = [
     path('upload_blog/',blogs.views.blog_upload,name='upload_blog'),
     path('blog/',blogs.views.blog,name='blog'),
     path('chatbox/',chatbox,name='chatbox'),
+    path('search/', appointment.views.search_results, name='search_results'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 

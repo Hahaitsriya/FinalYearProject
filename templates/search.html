@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="font-family: Times New Roman">
+    <div class="container-fluid">
+        <br>
+        <h2>Search Results</h2>
+        <form method="GET" action="{% url 'search_results' %}">
+            <input type="text" name="q" placeholder="Search..." class="form-control">
+            <br>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    {% if query %}
+        <p>Search results for "{{ query }}":</p>
+        {% if object_list %}
+            <ul>
+        <div class="row" style=" margin-left:150px; width: 1000px; padding:5px;">
+            {% for profile in object_list %}
+            <div class="col-sm">
+                <div class="card" style="width:350px">
+                    <br>     
+                    <div class="col-md-4" style="width: 250px; height: 200px; object-fit: hidden; padding-left: 50px;">
+                        {% if profile.user_profile %}
+                        <img src="{{ profile.user_profile.url }}" alt="Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%; justify-content: center;" class="card-img-top">
+                        {% else %}
+                            {% load static %}
+                            <!-- Default profile picture -->
+                            <img src="{% static 'profile.jpg' %}" alt="Default Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%; justify-content: center;" class="card-img-top">
+                        {% endif  %}
+                    </div>
+                    <div class="card-body" style="margin-left:50px">
+                        <h4 class="card-title">{{ profile.username }}</h4>
+                        <p class="card-text">
+                            <a href="mailto:{{profile.user_email}}">{{ profile.user_email }}</a>
+                            <br>
+                            <span>{{ profile.user_contact }}</span>
+                            <br>
+                            <span>{{ profile.user_address }}</span>
+                            <br>
+                            <span>{{ profile.user_speciality }}</span>
+                        </p>
+                        <a href="{% url 'user_doctor_profile' user_id=profile.user_id %}" class="btn btn-primary">See Profile</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}    
+            </ul>
+        </div>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    {% else %}
+        <p>Please enter a search query.</p>
+    {% endif %}
+</div>
+{% endblock %}
