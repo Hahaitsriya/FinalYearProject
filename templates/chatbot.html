@@ -1,92 +1,17 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
 {% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% load static %}
+{% block content %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="https://stack.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <style>
-        input[type="search"] {
-            border-radius: 5px;
-            padding:15px;
-            width: 100%;
-            border: 2px solid #ccc;
-            transition: border-color 0.3s;
-        }
-
-        input[type="search"]:focus {
-            border-color: #007bff;
-        }
-
-        input[type="search"]::placeholder {
-            color: #ccc;
-        }
-
-        input[type="search"]:focus::placeholder {
-            color: #999;
-        }
-
-        input[type="search"]:focus {
-            outline: none;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            transition: background-color 0.3s;
-        }
-
-        li:hover {
-            background-color: #f5f5f5;
-        }
-
-        .card {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-body {
-            padding: 0;
-        }
-
-        .card-body p {
-            margin: 0;
-        }
-
-        .card-title {
-            margin-bottom: 10px;
-        }
-
-
-
-    </style>
-
+    <!-- CSS and JavaScript imports -->
 </head>
-{% block content %}
-  </html>
-</br>
-</br>
-<div>
+<body style="font-family: Times New Roman">
+<div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
+            <h3 style="text-align: center;"> Text Your Problem Here: </h3>
+            <br>
             <form action="{% url 'chatbox' %}" method="POST">
                 {% csrf_token %}
                 <input type="search" name="q" placeholder="Enter your health problem here..." class="form-control" />
@@ -94,32 +19,41 @@
         </div>
     </div>
 </div>
-
-<div class="container">
+<br>
+<div class="container-fluid">
     <div class="row">
-        {% if response %}
-            {% for profile in response %}
-                <div class="col-md-4">
+        {% if hospital_response %}
+            {% for hospital in hospital_response %}
+                <div class="col-md-6 mb-3">
                     <div class="card">
+                        {% if hospital.hospital_profile %}
+                            <img src="{{ hospital.hospital_profile.url }}" class="card-img-top img-fluid rounded-md" style="max-height: 500px;" alt="Hospital Profile">
+                        {% endif %}
                         <div class="card-body">
-                            <h2 class="card-title">{{ profile.username }}</h2>
-                            <p>Email: {{ profile.user_email }}</p>
-                            <p>Contact: {{ profile.user_contact }}</p>
-                            <p>Contact: {{ profile.user_address }}</p>
-                            <!-- Add more fields as needed -->
+                            <h5 class="card-title">{{ hospital.hospital_name }}</h5>
+                            <p class="card-text">Specialization: {{ hospital.hospital_specialists }}</p>
+                            <p class="card-text">Description: {{ hospital.hospital_description }}</p>
+                            <!-- Add more hospital details as needed -->
+                            <p class="card-text">Associated Doctors:</p>
+                            <ul class="list-unstyled">
+                                {% for user in hospital.hospital_user.all %}
+                                    <li>{{ user.username }} - {{ user.user_email }}</li>
+                                    <li> {{user.user_speciality}}</li>
+                                    <br>
+                                    <!-- Add more user details as needed -->
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
             <div class="col-md-12">
-                <p>No results found.</p>
+                <p>No hospitals found.</p>
             </div>
         {% endif %}
-    </div>
-</div>
-{% endblock %}
-
+    </div>    
 </div>
 </body>
 </html>
+{% endblock %}

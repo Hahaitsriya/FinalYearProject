@@ -5,6 +5,9 @@ from .models import Appointment
 from authentication.models import userProfile
 from django.utils import timezone
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -97,4 +100,31 @@ def session(request):
     # Redirect to dashboard or appropriate page if appointment details are not found
     return redirect('dashboard')  
 
-
+def accept_appointment(request):
+    if request.method == 'POST':
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            appointment_id = request.POST.get('appointment_id')
+            print(appointment_id)
+            if appointment_id:
+                appointment = Appointment.objects.get(pk=appointment_id)
+                
+                # Send email to the user
+                user_email = appointment.appointment_email
+                user_subject = "Appointment Accepted"
+                user_message = render_to_string('appointment/email/user_notification.html', {'appointment': appointment})
+                send_mail(user_subject, user_message, 'your_email@example.com', [user_email])
+                
+                # Send email to the doctor
+                doctor_email = appointment.doctor.user_email
+                doctor_subject = "Appointment Accepted"
+                doctor_message = render_to_string('appointment/email/doctor_notification.html', {'appointment': appointment})
+                send_mail(doctor_subject, doctor_message, 'your_email@example.com', [doctor_email])
+                
+                # Update appointment status in the database or perform any other necessary actions
+                appointment.status = 'Accepted'
+                appointment.save()
+                
+                return JsonResponse({'status': 'success'})  # Return JSON response indicating success
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Appointment ID not provided'}, status=400)  # Return JSON response indicating error
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)  # Return JSON response indicating error

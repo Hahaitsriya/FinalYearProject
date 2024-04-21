@@ -17,7 +17,7 @@ def blog_upload(request):
         blog_details.save()
         print(blog_details)
     
-    return render(request,'blog/upload_blog.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status, 'blog_date': date.today()})
+    return render(request,'blog/upload_blog.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'user_profile':user_profile.user_profile, 'blog_date': date.today()})
 
 def blog(request):
     user_id = request.session.get('user_id')
@@ -27,4 +27,4 @@ def blog(request):
         user_profile = userProfile.objects.get(user_id=user_id)
         blog_details=blogs.objects.all()
         print(blog_details)
-    return render(request,'blog/blog.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'blog_details':blog_details})
+    return render(request,'blog/blog.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'user_profile':user_profile.user_profile,'blog_details':blog_details})

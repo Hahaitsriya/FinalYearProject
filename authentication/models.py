@@ -17,7 +17,9 @@ class userProfile(models.Model):
 
 class hospital(models.Model):
     hospital_name = models.CharField(max_length=500, null=True, blank=False)
-    hospital_specialists = models.CharField(max_length=500,verbose_name="Hospital Speciality: ",null=False,blank=True)
+    hospital_profile=models.ImageField(verbose_name="Hospital Profile",upload_to='media/hospital', null=True, blank=False)
+    hospital_specialists = models.CharField(max_length=500,verbose_name="Hospital Speciality: ",null=True,blank=False)
+    hospital_description=models.CharField(max_length=450,verbose_name="Explanation",blank=False, null=True)
     hospital_user = models.ManyToManyField(userProfile, related_name="user_hospital_details")
     def __str__(self):
         return self.hospital_name
