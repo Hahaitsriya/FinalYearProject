@@ -92,24 +92,6 @@
         return true; 
       } 
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const statusDropdown = document.getElementById('status');
-      const specializedField = document.getElementById('specialized-field');
-
-      statusDropdown.addEventListener('change', function() {
-          if (statusDropdown.value === 'doctor') {
-              specializedField.style.display = 'block';
-          } else {
-              specializedField.style.display = 'none';
-          }
-      });
-
-      // Trigger change event initially if status is pre-selected
-      if (statusDropdown.value === 'doctor') {
-          specializedField.style.display = 'block';
-      }
-  });
   </script>
   <div>
     <center>
@@ -169,21 +151,41 @@
           <br>
           <br>
           <!-- Dropdown button to seperate the role of the users. -->
-          <tr>
-            <label for="status"> Status: </label>
+          <!-- Dropdown button to separate the roles of the users. -->
+          <div>
+            <label for="status">Status:</label>
             <select name="status" id="status" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" role="button" required>
-              <option value="user" class="dropdown-item">User</option>
-              <option value="doctor" class="dropdown-item">Doctor</option>
-              <option value="hospital" class="dropdown-item">Hospital</option>
+                <option value="user" class="dropdown-item">User</option>
+                <option value="doctor" class="dropdown-item">Doctor</option>
+                <option value="hospital" class="dropdown-item">Hospital</option>
             </select>
+          </div>
 
-            <tr id="specialized-field" style="display: none;">
-              <label for="specialized">Specialized:</label>
-              <input type="text" name="specification_doctor" placeholder="Cardiology" required>
-            </tr>
-          </tr>
+          <div id="specialized-field" style="display: none;">
+            <label for="specialized">Specialized:</label>
+            <input type="text" name="specification_doctor" placeholder="Cardiology">
+          </div>
           <br>
           <br>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const statusDropdown = document.getElementById('status');
+                const specializedField = document.getElementById('specialized-field');
+        
+                statusDropdown.addEventListener('change', function() {
+                    if (statusDropdown.value === 'doctor') {
+                        specializedField.style.display = 'block';
+                    } else {
+                        specializedField.style.display = 'none';
+                    }
+                });
+        
+                // Trigger change event initially if status is pre-selected
+                if (statusDropdown.value === 'doctor') {
+                    specializedField.style.display = 'block';
+                }
+            });
+        </script>
           <!-- Checkbox confirmation -->
           <p><input type="checkbox" required> 
             I agree to all terms and conditions. I hereby declare that I am above 18 and will be responsible for the action I did.

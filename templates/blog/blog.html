@@ -23,18 +23,15 @@
                         <th> <h1 style="text-align: center;">{{ ids.blog_title }}</h1> </th>
                         <tr>
                             <td>
-                                <br>
-                                <h4>{{ ids.blog_body }}</h4>
-                                <br>
-                                <h5>{{ ids.blog_date }}</h5> 
-                                <br>  
-                            </td>
-                            <td style="text-align: right;" >
-                                <div class="container">
-                                    <img src="{{ ids.blog_images.url }}" alt="Blog Image" style="height: 350px; width: 550px; object-fit: contain;">
-                                    <br>           
+                                <div style="float: right; margin-left: 10px;">
+                                    {% if ids.blog_images %}
+                                        <img src="{{ ids.blog_images.url }}" alt="Blog Image" style="height: 250px; width: auto; object-fit: contain;">
+                                    {% endif %}
                                 </div>
-                                <br>
+                                <div>
+                                    <p>{{ ids.blog_body }}</p>
+                                    <p>{{ ids.blog_date }}</p> 
+                                </div>
                             </td>
                         </tr>
                     </table>

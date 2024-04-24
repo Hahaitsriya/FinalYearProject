@@ -140,10 +140,12 @@
                         <h6>Posted by: {{ random_post.user_id.username }}</h6>
                     </td>
                     <td style="text-align: right;">
-                        <div class="container" style="padding-left: 20px;">
-                            <img src="{{ random_post.blog_images.url }}" alt="Blog Image" style="height: 350px; width: 550px; object-fit: contain; margin-top: 10px;">
-                        </div>
-                    </td>
+                      {% if random_post.blog_images %}
+                          <div class="container" style="padding-left: 20px;">
+                              <img src="{{ random_post.blog_images.url }}" alt="Blog Image" style="height: 350px; width: 550px; object-fit: contain; margin-top: 10px;">
+                          </div>
+                      {% endif %}
+                  </td>
                 </tr>
             </table>
               
@@ -245,7 +247,7 @@
             <h6 class="text-uppercase fw-bold mb-4">
               <i class="fas fa-gem me-3"></i>HealthPal Nepal
             </h6>
-            <img src="static\logo.png" alt="Logo footer" style="width: 200px; height: 80px;">
+            <img src="{% static 'logo_icon.png'%}" alt="Logo footer" style="width: 200px; height: 80px;">
             <br>
             <br>
             <p>

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from blogs.models import blogs, hospital
+from blogs.models import blogs
 
 # Register your models here.
-admin.site.register(blogs),
-admin.site.register(hospital),
+admin.site.register(blogs)
+

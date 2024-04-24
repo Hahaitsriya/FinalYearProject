@@ -18,8 +18,8 @@
            <!-- Profile Header -->
            <div class="row">
                <div class="col-md-4" style="width: 250px; height: 250px; object-fit: hidden;">
-                   {% if user_profile.user_profile %}
-                       <img src="{{ user_profile.user_profile.url }}" alt="Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%">
+                     {% if profile_pp %}
+                       <img src="{{ profile_pp.url }}" alt="Profile Picture" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%">
                    {% else %}
                    {% load static %}
                        <!-- Default profile picture -->

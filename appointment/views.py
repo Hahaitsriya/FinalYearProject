@@ -14,6 +14,9 @@ from django.http import JsonResponse
 def search_results(request):
     for_nav = request.session.get('user_id') 
     profiles = userProfile.objects.get(user_id=for_nav)
+    
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
     # Retrieve the current user's profile
     user_id = request.session.get('user_id')
     current_user_profile = get_object_or_404(userProfile, user_id=user_id)
@@ -38,6 +41,7 @@ def search_results(request):
         'query': query,
         'current_user_profile': current_user_profile,
         'status':profiles.user_status,
+        'profile_pp':for_profile.user_profile,
     }
     
     # Render the search results template with the context data
@@ -78,7 +82,7 @@ def user_doctor_profile(request, user_id):
    
     return render(request, 'profile.html',  {'username':user_profile.username,'email': user_profile.user_email,'contact': user_profile.user_contact,
                                             'status':profiles.user_status,'newStatus': user_profile.user_status,'user_profile': user_profile,'speciality':user_profile.user_speciality,
-                                            'appointment_details': appointment_details})
+                                            'appointment_details': appointment_details,'profile_pp':profiles.user_profile})
     
     
 def session(request):
@@ -86,16 +90,19 @@ def session(request):
     profiles = userProfile.objects.get(user_id=for_nav)
     doctor_email=profiles.user_email
     
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
+    
     # Retrieve appointment details from session
     appointment_details = request.session.get('appointment_details')
     
     if appointment_details:
         # Retrieve doctor's email from appointment details
-       appointment_email = appointment_details.get('doctor_email')   
+       appointment_email = appointment_details.get('doctor_email') 
        if doctor_email:
         # Filter appointments for the specific doctor
         doctor_appointments = Appointment.objects.filter(doctor__user_email=doctor_email)
-        return render(request, 'appointment/session.html', {'username':profiles.username,'email': profiles.user_email,'contact': profiles.user_contact,'status':profiles.user_status,'doctor_appointments': doctor_appointments})
+        return render(request, 'appointment/session.html', {'username':profiles.username,'email': profiles.user_email,'contact': profiles.user_contact,'status':profiles.user_status,'doctor_appointments': doctor_appointments,'profile_pp':for_profile.user_profile})
     
     # Redirect to dashboard or appropriate page if appointment details are not found
     return redirect('dashboard')  

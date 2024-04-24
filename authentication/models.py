@@ -13,7 +13,7 @@ class userProfile(models.Model):
     user_speciality = models.CharField(max_length=25,blank=True,null=False)
 
     def __str__(self):
-        return self.username
+        return self.user_email
 
 class hospital(models.Model):
     hospital_name = models.CharField(max_length=500, null=True, blank=False)

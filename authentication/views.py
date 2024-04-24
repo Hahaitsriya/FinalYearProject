@@ -84,7 +84,8 @@ def signup(request):
         user.user_address=address
         user.user_profile=image
         user.user_status =status
-        user.user_speciality=specification_doctor
+        if user.user_status=='doctor':
+            user.user_speciality=specification_doctor
         #Saves the data.
         user.save()
     return render(request,'signup.html')
@@ -119,21 +120,23 @@ def verify_email(request):
 
 def about_page(request):
     user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
     if user_id is None:
         return render(request,'login.html')
     else:
         user_profile = userProfile.objects.get(user_id=user_id)
         offer_detail=offerPost.objects.all()
         print(offer_detail)
-    return render(request,'about.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail})
+    return render(request,'about.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'offer_detail':offer_detail,'profile_pp':for_profile.user_profile})
 
 def user_profile(request):
     user_id = request.session.get('user_id')
+    
     if user_id is None:
         return render(request,'dashboard.html')
     else:
         for_profile = userProfile.objects.get(user_id=user_id)
-    return render(request,'user_profile.html',{'username':for_profile.username,'status':for_profile.user_status,'email':for_profile.user_email,'contact':for_profile.user_contact})
+    return render(request,'user_profile.html',{'username':for_profile.username,'status':for_profile.user_status,'email':for_profile.user_email,'contact':for_profile.user_contact,'profile_pp':for_profile.user_profile})
 
 def logout(request):
     request.session.pop('user_id', None)

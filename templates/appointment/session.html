@@ -14,29 +14,39 @@
     <title>Appointment Confirmation</title>
 </head>
 <body>
-    <h1>Doctor's Appointment List</h1>
-    
-    {% if doctor_appointments %}
-        <ul>
-            {% for appointment in doctor_appointments %}
-                <li>
-                    <strong>Appointment Name:</strong> {{ appointment.appointment_name }}<br>
-                    <strong>Email:</strong> {{ appointment.appointment_email }}<br>
-                    <strong>Appointment Time:</strong> {{ appointment.appointment_time }}<br>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Accept</button>
-                    </form>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Decline</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No appointments found.</p>
-    {% endif %}
+    <h2 style="text-align: center;">Doctor's Appointment List</h1>
+     <div class="container-fluid">
+                {% if doctor_appointments %}
+                    {% for appointment in doctor_appointments %}
+                    <div class="card bg-light text-dark">
+                        <div class="card-body">
+                            
+                            <strong>Appointment Name:</strong> {{ appointment.appointment_name }}<br>
+                            <strong>Email:</strong> {{ appointment.appointment_email }}<br>
+                            <strong>Appointment Time:</strong> {{ appointment.appointment_time }}<br>
+                            <br>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Accept</button>
+                            </form>
+                            <br>
+                            <form action="" method="post">
+                                {% csrf_token %} 
+                                <button type="submit" class="btn btn-danger" ><a href="mailto:{{ appointment.appointment_email }}" style="color: white">{{ appointment.appointment_email }}</a></button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                <br>
+                    {% endfor %}
+                {% else %}
+                    <p>No appointments found.</p>
+                {% endif %}
+         
+        </div>
+    </div>
+
+
     </body>
     </html>
 {% endblock %}

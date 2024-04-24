@@ -8,6 +8,9 @@ def blog_upload(request):
     user_id = request.session.get('user_id')
     user_profile = userProfile.objects.get(user_id=user_id)
     
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
+    
     if request.method == 'POST':
         title = request.POST.get('title_blog')
         body = request.POST.get('body_blog')
@@ -17,14 +20,16 @@ def blog_upload(request):
         blog_details.save()
         print(blog_details)
     
-    return render(request,'blog/upload_blog.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'user_profile':user_profile.user_profile, 'blog_date': date.today()})
+    return render(request,'blog/upload_blog.html', {'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'user_profile':user_profile.user_profile, 'blog_date': date.today(),'profile_pp':for_profile.user_profile})
 
 def blog(request):
     user_id = request.session.get('user_id')
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
     if user_id is None:
         return render(request,'login.html')
     else:
         user_profile = userProfile.objects.get(user_id=user_id)
         blog_details=blogs.objects.all()
         print(blog_details)
-    return render(request,'blog/blog.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'user_profile':user_profile.user_profile,'blog_details':blog_details})
+    return render(request,'blog/blog.html',{'username':user_profile.username,'user_id':user_id,'status':user_profile.user_status,'user_profile':user_profile.user_profile,'blog_details':blog_details,'profile_pp':for_profile.user_profile})

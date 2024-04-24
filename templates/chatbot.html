@@ -8,8 +8,9 @@
 </head>
 <body style="font-family: Times New Roman">
 <div class="container">
-    <div class="row">
+    <div class="row-fluid">
         <div class="col-md-6 offset-md-3">
+            <br>
             <h3 style="text-align: center;"> Text Your Problem Here: </h3>
             <br>
             <form action="{% url 'chatbox' %}" method="POST">
@@ -21,15 +22,18 @@
 </div>
 <br>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style=" margin-left:150px; width: 1000px; padding:5px;">
         {% if hospital_response %}
             {% for hospital in hospital_response %}
-                <div class="col-md-6 mb-3">
+                <div class="col-sm">
                     <div class="card">
-                        {% if hospital.hospital_profile %}
-                            <img src="{{ hospital.hospital_profile.url }}" class="card-img-top img-fluid rounded-md" style="max-height: 500px;" alt="Hospital Profile">
-                        {% endif %}
-                        <div class="card-body">
+                        <br>
+                        <div class="col-md-4" style="width: 250px; height: 200px; object-fit: hidden; padding-left: 50px;">
+                            {% if hospital.hospital_profile %}
+                                <img src="{{ hospital.hospital_profile.url }}" class="card-img-top img-fluid rounded-md" style="max-height: 500px;" alt="Hospital Profile">
+                            {% endif %}
+                        </div>
+                        <div class="card-body" style="text-align: center;">
                             <h5 class="card-title">{{ hospital.hospital_name }}</h5>
                             <p class="card-text">Specialization: {{ hospital.hospital_specialists }}</p>
                             <p class="card-text">Description: {{ hospital.hospital_description }}</p>

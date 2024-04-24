@@ -79,6 +79,9 @@ def chatbox(request):
     user_id = request.session.get('user_id')
     user_profile = userProfile.objects.get(user_id=user_id)
     
+    user_id = request.session.get('user_id')
+    for_profile = userProfile.objects.get(user_id=user_id)
+    
     if request.method == 'POST':
         q = request.POST.get('q')
         # Process the user input (q) and generate a response
@@ -89,14 +92,16 @@ def chatbox(request):
             'user_id': user_id,
             'status': user_profile.user_status,
             'user_response': user_response,
-            'hospital_response': hospital_response
+            'hospital_response': hospital_response,
+            'profile_pp':for_profile.user_profile
         })
     else:
         # Handle non-POST requests (e.g., GET requests)
         return render(request, 'chatbot.html', {
             'username': user_profile.username,
             'user_id': user_id,
-            'status': user_profile.user_status
+            'status': user_profile.user_status,
+            'profile_pp':for_profile.user_profile
         })
 
 def process_user_input(q):
