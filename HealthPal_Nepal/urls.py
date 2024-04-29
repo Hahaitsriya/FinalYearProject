@@ -37,6 +37,7 @@ urlpatterns = [
     path('session/',appointment.views.session,name='session'),
     path('user_doctor/',dashboard.views.user_doctor, name='user_doctor'),
     path('user_doctor_profile/<int:user_id>/',appointment.views.user_doctor_profile,name="user_doctor_profile"),
+    path('accept_appointment/<int:id>',appointment.views.accept_appointment,name='accept_appointment'),
     path('about/',views.about_page, name='about'),
     path('base_home',dashboard.views.base_home,name='base_home'),
     path('admin/', admin.site.urls),

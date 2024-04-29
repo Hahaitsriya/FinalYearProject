@@ -19,16 +19,14 @@
                 {% if doctor_appointments %}
                     {% for appointment in doctor_appointments %}
                     <div class="card bg-light text-dark">
-                        <div class="card-body">
-                            
+                        {% if appointment.appointment_status == 'requested' %}
+                        <div class="card-body">   
                             <strong>Appointment Name:</strong> {{ appointment.appointment_name }}<br>
                             <strong>Email:</strong> {{ appointment.appointment_email }}<br>
                             <strong>Appointment Time:</strong> {{ appointment.appointment_time }}<br>
                             <br>
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">Accept</button>
-                            </form>
+                            <a href="{% url 'accept_appointment' appointment.id %}" class="btn btn-primary" role="button">Accept</a>
+                            <br>
                             <br>
                             <form action="" method="post">
                                 {% csrf_token %} 
@@ -36,6 +34,7 @@
                             </form>
                             
                         </div>
+                        {%endif%}
                     </div>
                 <br>
                     {% endfor %}
