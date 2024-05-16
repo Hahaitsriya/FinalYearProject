@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+{% block title %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Upload an Blog</title>
+    </head>
+{% endblock %}
+{% block content %}
+<body style="font-family: Times New Roman">
+    <div class="container-fluid">
+        <br>
+        {% for ids in blog_details %}
+            <div class="card bg-light text-dark">
+                <div class="card-body">
+                    <table aria-colspan="2" class="container-fluid">
+                        <th> <h1 style="text-align: center;">{{ ids.blog_title }}</h1> </th>
+                        <tr>
+                            <td>
+                                <div style="float: right; margin-left: 10px;">
+                                    {% if ids.blog_images %}
+                                        <img src="{{ ids.blog_images.url }}" alt="Blog Image" style="height: 250px; width: auto; object-fit: contain;">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <p>{{ ids.blog_body }}</p>
+                                    <p>{{ ids.blog_date }}</p> 
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <h4> Posted by : {{ids.user_id.username}}</h4>
+                    <a href="mailto:{{ids.user_id.user_email}}">{{ ids.user_id.user_email }}</a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}  
+    </div>
+</body>
+{% endblock %}

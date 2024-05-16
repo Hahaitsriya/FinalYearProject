@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Doctor's Appointment List</h1>
+     <div class="container-fluid">
+                {% if doctor_appointments %}
+                    {% for appointment in doctor_appointments %}
+                    <div class="card bg-light text-dark">
+                        {% if appointment.appointment_status == 'requested' %}
+                        <div class="card-body">   
+                            <strong>Appointment Name:</strong> {{ appointment.appointment_name }}<br>
+                            <strong>Email:</strong> {{ appointment.appointment_email }}<br>
+                            <strong>Appointment Time:</strong> {{ appointment.appointment_time }}<br>
+                            <br>
+                            <a href="{% url 'accept_appointment' appointment.id %}" class="btn btn-primary" role="button">Accept</a>
+                            <br>
+                            <br>
+                            <form action="" method="post">
+                                {% csrf_token %} 
+                                <button type="submit" class="btn btn-danger" ><a href="mailto:{{ appointment.appointment_email }}" style="color: white">{{ appointment.appointment_email }}</a></button>
+                            </form>
+                            
+                        </div>
+                        {%endif%}
+                    </div>
+                <br>
+                    {% endfor %}
+                {% else %}
+                    <p>No appointments found.</p>
+                {% endif %}
+         
+        </div>
+    </div>
+
+
+    </body>
+    </html>
+{% endblock %}

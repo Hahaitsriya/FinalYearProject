@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html>
+{% block title %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dashboard</title>
+    </head>
+    {% endblock %}
+    {% block content %}
+    <body style="font-family: Times New Roman">
+        <div class="container-fluid" >
+            <br>
+            {% for ids in offer_detail %}
+                <div class="card bg-light text-dark">
+                    <div class="card-body">
+                        <table>
+                            <td>
+                        <h1 style="text-align: center;">{{ ids.offer_title }}</h1>
+                        <br>
+                        <h4>{{ ids.offer_body }}</h4>
+                        <br>
+                        <table aria-colspan="2" style="width:100%;">
+                            <tr>
+                                <td style="padding-right: 10px;">
+                                    <h5>{{ ids.today_date }}</h5>
+                                </td>
+                                <td style="padding-left: 10px;">
+                                    <h5>{{ ids.expiry_date }}</h5>
+                                </td>
+                            </tr>
+                        </table> 
+                        <br>                                   
+                        <h5>{{ ids.offer_location }}</h5>
+                        <br>
+                        <h4> Posted by: {{ids.user_id.username}}</h4>
+                        </td>
+                        <td>
+                            {% if ids.offer_picture %}
+                            <img src="{{ ids.offer_picture.url }}" alt="Offer Image" style="height: 350px; width: 550px; object-fit: contain;">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                        </td>
+                        </table>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{ ids.offer_id }}" style="margin-left: 1100px;" id="button">
+                            See more >
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <!-- The Modal -->
+                <div class="modal" id="myModal{{ ids.offer_id }}">
+                    <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">Register on {{  ids.offer_title }}</h4>
+                    </div>
+                
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            {{ ids.offer_explaination }}
+                            <br>
+                            <form method="POST" action="{% url 'register_view' ids.offer_id %}">
+                                {% csrf_token %}            
+                                <table>
+                                    <tr> <h2 style="text-align: center;"> Fill up form to register !!! </h2></tr>
+                                    <tr>
+                                        <label> Username: </label>
+                                        <input type="text" class="form-control" name="username" placeholder=" John Doe" required> 
+                                        <br>
+                                        <label> Email : </label>
+                                        <input type="text" class="form-control" name="user_email" placeholder=" example123@gmail.com" required> 
+                                        <br>
+                                        <label> Contact: </label>
+                                        <input type="text" class="form-control" name="contact" placeholder=" 9741671108" required> 
+                                        <br>
+                                    </tr>
+                                </table>
+                                <input type="submit" value="Register" class="btn btn-primary">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </form>    
+                        </div>
+                    </div>
+                    </div>
+                </div>                            
+            {% endfor %}            
+        </div>
+    </body>
+</html>
+{% endblock %}

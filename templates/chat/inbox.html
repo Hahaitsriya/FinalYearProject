@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- Loading bootstrap,css, html, javascript and static files for the website. -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<html lang="en">
+    {% block title %}
+    <head>
+      <meta charset="UTF-8">
+      <title>Inbox</title>  
+    </head>
+    {% endblock %}
+    {% block content %}
+    <body>
+        <div class="container mt-4">
+            <h2>Inbox</h2>
+            <div class="list-group">
+                {% for message in messages %}
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">From: {{ message.sender.username }}</h5>
+                            <small>{{ message.timestamp|date:"N j, Y, P" }}</small>
+                        </div>
+                        <p class="mb-1">{{ message.body }}</p>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-info" role="alert">
+                        Your inbox is empty.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock %}
